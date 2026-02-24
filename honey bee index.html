@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Strav Honey Bee Network</title>
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+
+    <style>
+        body { background-color: #000; color: #fff; font-family: sans-serif; text-align: center; margin: 0; display: flex; flex-direction: column; justify-content: center; height: 100vh; }
+        .balance { font-size: 50px; font-weight: bold; color: #ffcc00; text-shadow: 0 0 10px #ffcc00; }
+        .bee { font-size: 100px; animation: fly 3s infinite ease-in-out; margin: 20px 0; }
+        @keyframes fly { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
+        .main-btn { background: linear-gradient(45deg, #ffcc00, #ff9900); border: none; padding: 15px 40px; font-size: 20px; font-weight: bold; border-radius: 50px; cursor: pointer; }
+        .login-btn { background: white; color: black; padding: 10px 20px; border-radius: 5px; cursor: pointer; margin-top: 10px; }
+    </style>
+</head>
+<body>
+
+    <div id="login-screen">
+        <h2>Welcome to Bee Network</h2>
+        <button class="login-btn" onclick="googleLogin()">Login with Google</button>
+    </div>
+
+    <div id="mining-screen" style="display:none;">
+        <div class="balance" id="display-balance">0.0000</div>
+        <div style="color: #ffcc00;">BEE COINS</div>
+        <div class="bee">🐝</div>
+        <button class="main-btn" id="mine-btn" onclick="startMining()">START MINING</button>
+    </div>
+
+    <script>
+        // ======================================================
+        // 1. APNI FIREBASE CONFIG YAHAN BHAREIN (Copy from Firebase)
+        // ======================================================
+        const firebaseConfig = {
+            apiKey: "AIzaSyCvKAzu4Nj7IngFHg-VI59ZrIe4DYOmRTw",
+            authDomain: "stravhoneybee.firebaseapp.com",
+            projectId: "stravhoneybee",
+            storageBucket: "stravhoneybee.firebasestorage.app",
+            messagingSenderId: "940311188604",
+            appId: "1:940311188604:web:21c4009a124ecd19c065f9"
+        };
+        // ======================================================
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+
+        let userDocRef;
+        let balance = 0;
+        let miningInterval;
+
+        // Login Function
+        function googleLogin() {
+            const provider = new firebase.auth.GoogleAuthProvider();
+            auth.signInWithPopup(provider).then((result) => {
+                loadUserData(result.user);
+            }).catch(err => alert("Login failed: " + err.message));
+        }
+
+        // Check if User is already logged in
+        auth.onAuthStateChanged(user => {
+            if (user) loadUserData(user);
+        });
+
+        function loadUserData(user) {
+            document.getElementById('login-screen').style.display = 'none';
+            document.getElementById('mining-screen').style.display = 'block';
+            
+            userDocRef = db.collection("users").doc(user.uid);
+            userDocRef.get().then((doc) => {
+                if (doc.exists) {
+                    balance = doc.data().balance;
+                    updateDisplay();
+                } else {
+                    userDocRef.set({ email: user.email, balance: 0 });
+                }
+            });
+        }
+
+        function startMining() {
+            const btn = document.getElementById('mine-btn');
+            btn.disabled = true;
+            btn.innerText = "MINING ACTIVE...";
+
+            miningInterval = setInterval(() => {
+                balance += 0.0001;
+                updateDisplay();
+                // Save to Firebase every 10 seconds
+                if (Math.random() > 0.9) {
+                    userDocRef.update({ balance: balance });
+                }
+            }, 1000);
+        }
+
+        function updateDisplay() {
+            document.getElementById('display-balance').innerText = balance.toFixed(4);
+        }
+    </script>
+</body>
+</html>
