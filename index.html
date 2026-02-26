@@ -4,38 +4,60 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Strav Honey Bee Network</title>
-    <!-- Firebase SDKs -->
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
-
     <style>
-        body { background-color: #000; color: #fff; font-family: sans-serif; text-align: center; margin: 0; display: flex; flex-direction: column; justify-content: center; height: 100vh; }
-        .balance { font-size: 50px; font-weight: bold; color: #ffcc00; text-shadow: 0 0 10px #ffcc00; }
-        .bee { font-size: 100px; animation: fly 3s infinite ease-in-out; margin: 20px 0; }
+        body { background-color: #000; color: #fff; font-family: sans-serif; text-align: center; margin: 0; padding-bottom: 80px; }
+        .balance { font-size: 45px; font-weight: bold; color: #ffcc00; margin-top: 30px; text-shadow: 0 0 10px #ffcc00; }
+        .bee { font-size: 80px; animation: fly 3s infinite ease-in-out; margin: 15px 0; }
         @keyframes fly { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
-        .main-btn { background: linear-gradient(45deg, #ffcc00, #ff9900); border: none; padding: 15px 40px; font-size: 20px; font-weight: bold; border-radius: 50px; cursor: pointer; }
-        .login-btn { background: white; color: black; padding: 10px 20px; border-radius: 5px; cursor: pointer; margin-top: 10px; }
+        .main-btn { background: linear-gradient(45deg, #ffcc00, #ff9900); border: none; padding: 12px 30px; font-size: 18px; font-weight: bold; border-radius: 50px; cursor: pointer; width: 85%; margin: 10px 0; color: #000; }
+        .footer { position: fixed; bottom: 0; width: 100%; background: #111; display: flex; justify-content: space-around; padding: 15px 0; border-top: 1px solid #333; }
+        .section { display: none; padding: 20px; }
+        .active-section { display: block !important; }
+        input { width: 80%; padding: 12px; margin: 10px 0; border-radius: 8px; border: none; background: #222; color: #fff; }
     </style>
 </head>
 <body>
 
-    <div id="login-screen">
-        <h2>Welcome to Bee Network</h2>
-        <button class="login-btn" onclick="googleLogin()">Login with Google</button>
+    <div id="login-screen" style="margin-top: 100px;">
+        <h1>🐝 Bee Network</h1>
+        <button class="main-btn" onclick="googleLogin()">Login with Google</button>
     </div>
 
-    <div id="mining-screen" style="display:none;">
+    <div id="mine-section" class="section">
         <div class="balance" id="display-balance">0.0000</div>
-        <div style="color: #ffcc00;">BEE COINS</div>
+        <p style="color: #ffcc00;">MINED BEE COINS</p>
         <div class="bee">🐝</div>
         <button class="main-btn" id="mine-btn" onclick="startMining()">START MINING</button>
+        <!-- Aapka Monetag Link yahan kaam karega -->
+        <button class="main-btn" style="background: red; color: white;" onclick="boostSpeed()">⚡ BOOST SPEED (Watch Ad)</button>
+    </div>
+
+    <div id="task-section" class="section">
+        <h2>📋 Daily Tasks</h2>
+        <p>Complete tasks to earn 5000 Coins</p>
+        <button class="main-btn" style="background: #00ccff;" onclick="openOffers()">GO TO TASKS</button>
+    </div>
+
+    <div id="wallet-section" class="section">
+        <h2>👛 Wallet</h2>
+        <div class="balance" id="wallet-balance">0.0000</div>
+        <input type="text" id="wallet-address" placeholder="USDT Address (BEP20)">
+        <button class="main-btn" onclick="requestWithdraw()">WITHDRAW NOW</button>
+    </div>
+
+    <div class="footer" id="main-footer" style="display:none;">
+        <div onclick="showSection('mine-section')">🏠 Mine</div>
+        <div onclick="showSection('task-section')">📋 Tasks</div>
+        <div onclick="showSection('wallet-section')">👛 Wallet</div>
     </div>
 
     <script>
-        // ======================================================
-        // 1. APNI FIREBASE CONFIG YAHAN BHAREIN (Copy from Firebase)
-        // ======================================================
+        // ==========================================
+        // ⚠️ SIRF IN 3 JAGAH DETAILS BHAREIN ⚠️
+        // ==========================================
         const firebaseConfig = {
             apiKey: "AIzaSyCvKAzu4Nj7IngFHg-VI59ZrIe4DYOmRTw",
             authDomain: "stravhoneybee.firebaseapp.com",
@@ -44,62 +66,65 @@
             messagingSenderId: "940311188604",
             appId: "1:940311188604:web:21c4009a124ecd19c065f9"
         };
-        // ======================================================
+        const MONETAG_LINK = "https://omg10.com/4/10655169";
+        const CPAGRIP_LINK = "
 
-        // Initialize Firebase
+<script type="text/javascript" src="https://doctoredits.com/script_include.php?id=1879344"></script>";
+        // ==========================================
+
         firebase.initializeApp(firebaseConfig);
-        const auth = firebase.auth();
         const db = firebase.firestore();
+        const auth = firebase.auth();
+        let userDocRef, balance = 0;
 
-        let userDocRef;
-        let balance = 0;
-        let miningInterval;
-
-        // Login Function
         function googleLogin() {
             const provider = new firebase.auth.GoogleAuthProvider();
-            auth.signInWithPopup(provider).then((result) => {
-                loadUserData(result.user);
-            }).catch(err => alert("Login failed: " + err.message));
+            auth.signInWithPopup(provider).then(() => location.reload());
         }
 
-        // Check if User is already logged in
         auth.onAuthStateChanged(user => {
-            if (user) loadUserData(user);
+            if (user) {
+                document.getElementById('login-screen').style.display = 'none';
+                document.getElementById('main-footer').style.display = 'flex';
+                showSection('mine-section');
+                userDocRef = db.collection("users").doc(user.uid);
+                userDocRef.get().then(doc => {
+                    if (doc.exists) { balance = doc.data().balance; updateUI(); }
+                    else { userDocRef.set({ email: user.email, balance: 0 }); }
+                });
+            }
         });
 
-        function loadUserData(user) {
-            document.getElementById('login-screen').style.display = 'none';
-            document.getElementById('mining-screen').style.display = 'block';
-            
-            userDocRef = db.collection("users").doc(user.uid);
-            userDocRef.get().then((doc) => {
-                if (doc.exists) {
-                    balance = doc.data().balance;
-                    updateDisplay();
-                } else {
-                    userDocRef.set({ email: user.email, balance: 0 });
-                }
-            });
-        }
-
         function startMining() {
-            const btn = document.getElementById('mine-btn');
-            btn.disabled = true;
-            btn.innerText = "MINING ACTIVE...";
-
-            miningInterval = setInterval(() => {
-                balance += 0.0001;
-                updateDisplay();
-                // Save to Firebase every 10 seconds
-                if (Math.random() > 0.9) {
-                    userDocRef.update({ balance: balance });
-                }
+            document.getElementById('mine-btn').innerText = "MINING ACTIVE...";
+            document.getElementById('mine-btn').disabled = true;
+            setInterval(() => {
+                balance += 0.0005; updateUI();
+                if (Math.random() > 0.9) userDocRef.update({ balance: balance });
             }, 1000);
         }
 
-        function updateDisplay() {
+        function boostSpeed() { window.open(MONETAG_LINK, "_blank"); }
+        function openOffers() { window.open(CPAGRIP_LINK, "_blank"); }
+
+        function requestWithdraw() {
+            const addr = document.getElementById('wallet-address').value;
+            if (balance < 10000) { alert("Need 10,000 Coins!"); }
+            else {
+                db.collection("withdrawals").add({ email: auth.currentUser.email, address: addr, amount: balance, status: "Pending", date: new Date() });
+                balance = 0; userDocRef.update({ balance: 0 }); updateUI();
+                alert("Withdraw Request Sent!");
+            }
+        }
+
+        function updateUI() {
             document.getElementById('display-balance').innerText = balance.toFixed(4);
+            document.getElementById('wallet-balance').innerText = balance.toFixed(4);
+        }
+
+        function showSection(id) {
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active-section'));
+            document.getElementById(id).classList.add('active-section');
         }
     </script>
 </body>
