@@ -3,10 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bee Network Live</title>
+    <title>Bee Network Cloud</title>
+    <!-- Firebase -->
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+
+    <!-- CPAGrip Script (Aapka wala) -->
+    <script type="text/javascript" src="https://doctoredits.com/script_include.php?id=1879344"></script>
+
     <style>
         body { background-color: #000; color: #fff; font-family: sans-serif; text-align: center; margin: 0; padding-bottom: 80px; }
         .balance { font-size: 45px; font-weight: bold; color: #ffcc00; margin-top: 30px; text-shadow: 0 0 10px #ffcc00; }
@@ -21,25 +26,32 @@
 </head>
 <body>
 
+    <!-- 1. Login -->
     <div id="login-screen" style="margin-top: 100px;">
         <div class="bee">🐝</div>
-        <h1>Bee Network</h1>
+        <h1>BEE NETWORK</h1>
         <button class="main-btn" onclick="googleLogin()">Login with Google</button>
     </div>
 
+    <!-- 2. Mine -->
     <div id="mine-section" class="section">
         <div class="balance" id="display-balance">0.0000</div>
         <p style="color: #ffcc00;">MINED BEE COINS</p>
         <div class="bee">🐝</div>
         <button class="main-btn" id="mine-btn" onclick="startMining()">START MINING</button>
-        <button class="main-btn" style="background: red; color: white;" onclick="boostSpeed()">⚡ BOOST SPEED (Watch Ad)</button>
+        <button class="main-btn" style="background: red; color: white;" onclick="boostSpeed()">⚡ BOOST SPEED</button>
     </div>
 
+    <!-- 3. Tasks -->
     <div id="task-section" class="section">
         <h2>📋 Daily Tasks</h2>
-        <button class="main-btn" style="background: #00ccff;" onclick="openOffers()">GO TO OFFERS</button>
+        <div style="background:#111; padding:15px; border-radius:15px;">
+            <p>Install App = 5,000 Coins</p>
+            <button class="main-btn" style="background:#00ccff;" onclick="call_locker();">GO TO TASKS</button>
+        </div>
     </div>
 
+    <!-- 4. Wallet -->
     <div id="wallet-section" class="section">
         <h2>👛 Wallet</h2>
         <div class="balance" id="wallet-balance">0.0000</div>
@@ -54,19 +66,17 @@
     </div>
 
     <script>
-        // --- APNI DETAILS YAHAN BHAREIN ---
+        // --- ⚠️ SIRF YE 2 DETAILS BHAREIN ⚠️ ---
         const firebaseConfig = {
             apiKey: "AIzaSyCvKAzu4Nj7IngFHg-VI59ZrIe4DYOmRTw",
             authDomain: "stravhoneybee.firebaseapp.com",
             projectId: "stravhoneybee",
-            storageBucket: "stravhoneybee.firebasestorage.app",
+            storageBucket: "stravhoneybee.appspot.com",
             messagingSenderId: "940311188604",
             appId: "1:940311188604:web:21c4009a124ecd19c065f9"
         };
         const MONETAG_LINK = "https://omg10.com/4/10655169";
-        const CPAGRIP_LINK = "<script type="text/javascript" src="https://doctoredits.com/script_include.php?id=1879344"></script>";
 
-        // Firebase Setup
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
         const auth = firebase.auth();
@@ -92,7 +102,6 @@
 
         function startMining() {
             document.getElementById('mine-btn').innerText = "MINING ACTIVE...";
-            document.getElementById('mine-btn').disabled = true;
             setInterval(() => {
                 balance += 0.0005; updateUI();
                 if (Math.random() > 0.9) userDocRef.update({ balance: balance });
@@ -100,14 +109,13 @@
         }
 
         function boostSpeed() { window.open(MONETAG_LINK, "_blank"); }
-        function openOffers() { window.open(CPAGRIP_LINK, "_blank"); }
 
         function requestWithdraw() {
             const addr = document.getElementById('wallet-address').value;
-            if (balance < 10000) { alert("Need 10,000 Coins!"); }
+            if (balance < 10000) alert("Need 10,000 Coins!");
             else {
-                db.collection("withdrawals").add({ email: auth.currentUser.email, address: addr, amount: balance, status: "Pending", date: new Date() });
-                alert("Withdraw Request Sent!");
+                db.collection("withdrawals").add({ email: auth.currentUser.email, address: addr, amount: balance, status: "Pending" });
+                alert("Request Sent!");
             }
         }
 
