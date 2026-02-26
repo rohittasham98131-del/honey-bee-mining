@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Strav Honey Bee Network</title>
+    <title>Bee Network Live</title>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
@@ -22,7 +22,8 @@
 <body>
 
     <div id="login-screen" style="margin-top: 100px;">
-        <h1>🐝 Bee Network</h1>
+        <div class="bee">🐝</div>
+        <h1>Bee Network</h1>
         <button class="main-btn" onclick="googleLogin()">Login with Google</button>
     </div>
 
@@ -31,14 +32,12 @@
         <p style="color: #ffcc00;">MINED BEE COINS</p>
         <div class="bee">🐝</div>
         <button class="main-btn" id="mine-btn" onclick="startMining()">START MINING</button>
-        <!-- Aapka Monetag Link yahan kaam karega -->
         <button class="main-btn" style="background: red; color: white;" onclick="boostSpeed()">⚡ BOOST SPEED (Watch Ad)</button>
     </div>
 
     <div id="task-section" class="section">
         <h2>📋 Daily Tasks</h2>
-        <p>Complete tasks to earn 5000 Coins</p>
-        <button class="main-btn" style="background: #00ccff;" onclick="openOffers()">GO TO TASKS</button>
+        <button class="main-btn" style="background: #00ccff;" onclick="openOffers()">GO TO OFFERS</button>
     </div>
 
     <div id="wallet-section" class="section">
@@ -55,9 +54,7 @@
     </div>
 
     <script>
-        // ==========================================
-        // ⚠️ SIRF IN 3 JAGAH DETAILS BHAREIN ⚠️
-        // ==========================================
+        // --- APNI DETAILS YAHAN BHAREIN ---
         const firebaseConfig = {
             apiKey: "AIzaSyCvKAzu4Nj7IngFHg-VI59ZrIe4DYOmRTw",
             authDomain: "stravhoneybee.firebaseapp.com",
@@ -67,11 +64,9 @@
             appId: "1:940311188604:web:21c4009a124ecd19c065f9"
         };
         const MONETAG_LINK = "https://omg10.com/4/10655169";
-        const CPAGRIP_LINK = "
+        const CPAGRIP_LINK = "BHAREIN_CPAGRIP_LINK";
 
-<script type="text/javascript" src="https://doctoredits.com/script_include.php?id=1879344"></script>";
-        // ==========================================
-
+        // Firebase Setup
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
         const auth = firebase.auth();
@@ -112,7 +107,6 @@
             if (balance < 10000) { alert("Need 10,000 Coins!"); }
             else {
                 db.collection("withdrawals").add({ email: auth.currentUser.email, address: addr, amount: balance, status: "Pending", date: new Date() });
-                balance = 0; userDocRef.update({ balance: 0 }); updateUI();
                 alert("Withdraw Request Sent!");
             }
         }
