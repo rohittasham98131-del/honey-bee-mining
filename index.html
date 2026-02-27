@@ -3,62 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bee Network Cloud</title>
-    <!-- Firebase -->
+    <title>Strav Honey Bee Network</title>
+    <!-- Firebase Libraries -->
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
 
-    <!-- CPAGrip Script (Aapka wala) -->
+    <!-- CPAGrip Locker Script -->
     <script type="text/javascript" src="https://doctoredits.com/script_include.php?id=1879344"></script>
 
     <style>
         body { background-color: #000; color: #fff; font-family: sans-serif; text-align: center; margin: 0; padding-bottom: 80px; }
-        .balance { font-size: 45px; font-weight: bold; color: #ffcc00; margin-top: 30px; text-shadow: 0 0 10px #ffcc00; }
+        .balance-box { background: linear-gradient(45deg, #222, #111); padding: 20px; border-radius: 20px; margin: 20px auto; width: 85%; border: 1px solid #ffcc00; }
+        .balance { font-size: 40px; font-weight: bold; color: #ffcc00; }
+        .inr-val { font-size: 18px; color: #00ff00; }
         .bee { font-size: 80px; animation: fly 3s infinite ease-in-out; margin: 15px 0; }
         @keyframes fly { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
-        .main-btn { background: linear-gradient(45deg, #ffcc00, #ff9900); border: none; padding: 12px 30px; font-size: 18px; font-weight: bold; border-radius: 50px; cursor: pointer; width: 85%; margin: 10px 0; color: #000; }
+        .main-btn { background: linear-gradient(45deg, #ffcc00, #ff9900); border: none; padding: 12px 30px; font-size: 18px; font-weight: bold; border-radius: 50px; cursor: pointer; width: 85%; color: #000; margin-top: 10px; }
         .footer { position: fixed; bottom: 0; width: 100%; background: #111; display: flex; justify-content: space-around; padding: 15px 0; border-top: 1px solid #333; }
         .section { display: none; padding: 20px; }
         .active-section { display: block !important; }
-        input { width: 80%; padding: 12px; margin: 10px 0; border-radius: 8px; border: none; background: #222; color: #fff; }
+        .card { background: #111; border: 1px solid #333; padding: 15px; border-radius: 15px; margin-bottom: 15px; }
+        input, select { width: 85%; padding: 12px; margin: 10px 0; border-radius: 8px; border: none; background: #222; color: #fff; border: 1px solid #444; }
     </style>
 </head>
 <body>
 
-    <!-- 1. Login -->
+    <!-- 1. Login Screen -->
     <div id="login-screen" style="margin-top: 100px;">
         <div class="bee">🐝</div>
         <h1>BEE NETWORK</h1>
+        <p>Mine & Earn UPI Cash</p>
         <button class="main-btn" onclick="googleLogin()">Login with Google</button>
     </div>
 
-    <!-- 2. Mine -->
+    <!-- 2. Mine Section -->
     <div id="mine-section" class="section">
-        <div class="balance" id="display-balance">0.0000</div>
-        <p style="color: #ffcc00;">MINED BEE COINS</p>
+        <div class="balance-box">
+            <div class="balance" id="display-balance">0.00</div>
+            <div class="inr-val">≈ ₹<span id="display-inr">0.00</span></div>
+        </div>
         <div class="bee">🐝</div>
         <button class="main-btn" id="mine-btn" onclick="startMining()">START MINING</button>
-        <button class="main-btn" style="background: red; color: white;" onclick="boostSpeed()">⚡ BOOST SPEED</button>
+        <button class="main-btn" style="background: red; color: white;" onclick="window.open('https://omg10.com/4/10655169', '_blank')">⚡ BOOST SPEED</button>
     </div>
 
-    <!-- 3. Tasks -->
+    <!-- 3. Tasks Section -->
     <div id="task-section" class="section">
-        <h2>📋 Daily Tasks</h2>
-        <div style="background:#111; padding:15px; border-radius:15px;">
-            <p>Install App = 5,000 Coins</p>
-            <button class="main-btn" style="background:#00ccff;" onclick="call_locker();">GO TO TASKS</button>
+        <h2>📋 High Paying Tasks</h2>
+        <div class="card">
+            <p>Install 1 App to get ₹40 (4000 Coins)</p>
+            <button class="main-btn" style="background: #00ccff; color: white;" onclick="call_locker();">GO TO TASKS</button>
+        </div>
+        <div class="card" style="border: 1px solid #25D366;">
+            <p>👥 Invite Friends & Earn</p>
+            <button class="main-btn" style="background: #25D366; color: white;" onclick="shareApp()">SHARE ON WHATSAPP</button>
         </div>
     </div>
 
-    <!-- 4. Wallet -->
+    <!-- 4. Wallet Section -->
     <div id="wallet-section" class="section">
-        <h2>👛 Wallet</h2>
-        <div class="balance" id="wallet-balance">0.0000</div>
-        <input type="text" id="wallet-address" placeholder="USDT Address (BEP20)">
+        <h2>👛 Withdraw</h2>
+        <div class="balance-box"><p>Balance: ₹<span id="wallet-inr">0.00</span></p></div>
+        <select id="pay-method">
+            <option value="UPI">UPI (GPay, PhonePe, Paytm)</option>
+            <option value="USDT">Crypto - USDT (BEP20)</option>
+        </select>
+        <input type="text" id="wallet-address" placeholder="Enter UPI ID or Wallet Address">
         <button class="main-btn" onclick="requestWithdraw()">WITHDRAW NOW</button>
     </div>
 
+    <!-- Navigation Menu -->
     <div class="footer" id="main-footer" style="display:none;">
         <div onclick="showSection('mine-section')">🏠 Mine</div>
         <div onclick="showSection('task-section')">📋 Tasks</div>
@@ -66,7 +81,9 @@
     </div>
 
     <script>
-        // --- ⚠️ SIRF YE 2 DETAILS BHAREIN ⚠️ ---
+        // ==========================================
+        // ⚠️ SIRF YE 2 DETAILS BHAREIN ⚠️
+        // ==========================================
         const firebaseConfig = {
             apiKey: "AIzaSyCvKAzu4Nj7IngFHg-VI59ZrIe4DYOmRTw",
             authDomain: "stravhoneybee.firebaseapp.com",
@@ -75,12 +92,12 @@
             messagingSenderId: "940311188604",
             appId: "1:940311188604:web:21c4009a124ecd19c065f9"
         };
-        const MONETAG_LINK = "https://omg10.com/4/10655169";
+        // ==========================================
 
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
         const auth = firebase.auth();
-        let userDocRef, balance = 0;
+        let userDocRef, balance = 0, userEmail;
 
         function googleLogin() {
             const provider = new firebase.auth.GoogleAuthProvider();
@@ -89,6 +106,7 @@
 
         auth.onAuthStateChanged(user => {
             if (user) {
+                userEmail = user.email;
                 document.getElementById('login-screen').style.display = 'none';
                 document.getElementById('main-footer').style.display = 'flex';
                 showSection('mine-section');
@@ -101,27 +119,34 @@
         });
 
         function startMining() {
-            document.getElementById('mine-btn').innerText = "MINING ACTIVE...";
+            document.getElementById('mine-btn').innerText = "MINING...";
+            document.getElementById('mine-btn').disabled = true;
             setInterval(() => {
-                balance += 0.0005; updateUI();
+                balance += 0.05; updateUI();
                 if (Math.random() > 0.9) userDocRef.update({ balance: balance });
             }, 1000);
         }
 
-        function boostSpeed() { window.open(MONETAG_LINK, "_blank"); }
+        function shareApp() {
+            const msg = "Bhai, ye naya Mining App aaya hai jo UPI mein paise deta hai! Join kar: https://t.me/SignalMaster_Ind_bot";
+            window.open("https://api.whatsapp.com/send?text=" + encodeURIComponent(msg), "_blank");
+        }
 
         function requestWithdraw() {
             const addr = document.getElementById('wallet-address').value;
-            if (balance < 10000) alert("Need 10,000 Coins!");
+            const method = document.getElementById('pay-method').value;
+            if (balance < 5000) alert("Need ₹50 (5000 Coins)!");
             else {
-                db.collection("withdrawals").add({ email: auth.currentUser.email, address: addr, amount: balance, status: "Pending" });
-                alert("Request Sent!");
+                db.collection("withdrawals").add({ email: userEmail, method: method, details: addr, amount_inr: (balance/100).toFixed(2), status: "Pending", date: new Date() });
+                alert("Withdraw Request Sent via " + method);
             }
         }
 
         function updateUI() {
-            document.getElementById('display-balance').innerText = balance.toFixed(4);
-            document.getElementById('wallet-balance').innerText = balance.toFixed(4);
+            let inr = (balance / 100).toFixed(2);
+            document.getElementById('display-balance').innerText = Math.floor(balance);
+            document.getElementById('display-inr').innerText = inr;
+            document.getElementById('wallet-inr').innerText = inr;
         }
 
         function showSection(id) {
