@@ -3,40 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Strav Honey Bee Network</title>
+    <title>Strav Honey Bee - Official App</title>
+    
     <!-- Firebase SDKs -->
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
 
-    <!-- CPAGrip Task Script -->
+    <!-- CPAGrip Locker Script -->
     <script type="text/javascript" src="https://doctoredits.com/script_include.php?id=1879344"></script>
 
     <style>
-        body { background-color: #000; color: #fff; font-family: sans-serif; text-align: center; margin: 0; padding-bottom: 80px; user-select: none; }
-        .balance-box { background: linear-gradient(45deg, #222, #111); padding: 20px; border-radius: 20px; margin: 20px auto; width: 85%; border: 1px solid #ffcc00; }
-        .balance { font-size: 40px; font-weight: bold; color: #ffcc00; }
-        .inr-val { font-size: 18px; color: #00ff00; }
-        .speed-badge { background: #ffcc00; color: #000; padding: 5px 12px; border-radius: 10px; font-size: 13px; font-weight: bold; margin-top: 10px; display: inline-block; }
-        .bee { font-size: 80px; animation: fly 3s infinite ease-in-out; margin: 15px 0; }
-        @keyframes fly { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
-        .main-btn { background: linear-gradient(45deg, #ffcc00, #ff9900); border: none; padding: 12px 30px; font-size: 17px; font-weight: bold; border-radius: 50px; cursor: pointer; width: 85%; color: #000; margin-top: 8px; }
-        .footer { position: fixed; bottom: 0; width: 100%; background: #111; display: flex; justify-content: space-around; padding: 15px 0; border-top: 1px solid #333; }
+        body { background-color: #000; color: #fff; font-family: sans-serif; text-align: center; margin: 0; padding-bottom: 90px; user-select: none; }
+        .balance-box { background: linear-gradient(45deg, #222, #111); padding: 25px; border-radius: 25px; margin: 20px auto; width: 85%; border: 1px solid #ffcc00; box-shadow: 0 0 15px rgba(255, 204, 0, 0.2); }
+        .balance { font-size: 45px; font-weight: bold; color: #ffcc00; }
+        .inr-val { font-size: 20px; color: #00ff00; font-weight: bold; }
+        .speed-badge { background: #ffcc00; color: #000; padding: 5px 15px; border-radius: 12px; font-size: 14px; font-weight: bold; margin-top: 10px; display: inline-block; }
+        .bee { font-size: 90px; animation: fly 3s infinite ease-in-out; margin: 20px 0; }
+        @keyframes fly { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-25px); } }
+        .main-btn { background: linear-gradient(45deg, #ffcc00, #ff9900); border: none; padding: 15px 30px; font-size: 18px; font-weight: bold; border-radius: 50px; cursor: pointer; width: 85%; color: #000; margin-top: 10px; transition: 0.3s; }
+        .footer { position: fixed; bottom: 0; width: 100%; background: #111; display: flex; justify-content: space-around; padding: 15px 0; border-top: 1px solid #333; z-index: 100; }
         .section { display: none; padding: 20px; }
         .active-section { display: block !important; }
-        .card { background: #111; border: 1px solid #333; padding: 15px; border-radius: 15px; margin-bottom: 15px; }
-        input, select { width: 85%; padding: 12px; margin: 10px 0; border-radius: 8px; border: none; background: #222; color: #fff; border: 1px solid #444; }
+        .card { background: #111; border: 1px solid #333; padding: 20px; border-radius: 20px; margin-bottom: 15px; }
+        input, select { width: 85%; padding: 12px; margin: 10px 0; border-radius: 10px; border: none; background: #222; color: #fff; border: 1px solid #444; }
+        .support-btn { background: #444; color: #fff; font-size: 14px; padding: 8px 15px; border-radius: 5px; margin-top: 15px; display: inline-block; text-decoration: none; }
     </style>
 </head>
 <body>
 
-    <div id="login-screen" style="margin-top: 100px;">
+    <!-- 1. LOGIN SCREEN -->
+    <div id="login-screen" style="margin-top: 120px;">
         <div class="bee">🐝</div>
         <h1 style="color:#ffcc00;">BEE NETWORK</h1>
-        <button class="main-btn" onclick="googleLogin()">Login with Google</button>
+        <p>Login to start earning UPI Cash</p>
+        <button class="main-btn" onclick="googleLogin()">LOGIN WITH GOOGLE</button>
     </div>
 
-    <!-- MINE SECTION -->
+    <!-- 2. MINE SECTION -->
     <div id="mine-section" class="section">
         <div class="balance-box">
             <div class="balance" id="display-balance">0.00</div>
@@ -45,33 +49,42 @@
         </div>
         <div class="bee">🐝</div>
         <button class="main-btn" id="mine-btn" onclick="startMining()">START MINING</button>
-        <button class="main-btn" style="background: #ff00ff; color: white;" onclick="watchVideoAd()">📺 WATCH VIDEO (Earn ₹1)</button>
-        <button class="main-btn" style="background: #ff3300; color: white;" onclick="boost5x()">⚡ BOOST 5x (Watch Ad)</button>
+        <button class="main-btn" style="background: #ff00ff; color: #fff;" onclick="watchVideoAd()">📺 WATCH VIDEO (Earn ₹1)</button>
+        <button class="main-btn" style="background: #ff3300; color: #fff;" onclick="boost5x()">⚡ BOOST 5x (Watch Ad)</button>
     </div>
 
-    <!-- TASKS SECTION -->
+    <!-- 3. TASK SECTION -->
     <div id="task-section" class="section">
-        <h2>📋 High Earning Tasks</h2>
+        <h2>📋 EARNING TASKS</h2>
         <div class="card">
-            <p>Install App = ₹40 (4000 Coins)</p>
-            <button class="main-btn" style="background: #00ccff; color:white;" onclick="call_locker();">GO TO TASKS</button>
+            <h4 style="margin:0; color:#ffcc00;">🔥 MEGA TASK</h4>
+            <p>Install 1 App = ₹40 (4000 Coins)</p>
+            <button class="main-btn" style="background: #00ccff; color:#fff;" onclick="call_locker();">GO TO TASKS</button>
         </div>
         <div class="card" style="border: 1px solid #00ff00;">
-            <p>🚀 SUPER BOOST (10x Speed)</p>
-            <button class="main-btn" style="background: #00ff00;" onclick="boost10x()">ACTIVATE 10x</button>
+            <h4 style="margin:0; color:#00ff00;">🚀 SUPER BOOST</h4>
+            <p>10x Speed for 5 Minutes</p>
+            <button class="main-btn" style="background: #00ff00; color:#000;" onclick="boost10x()">ACTIVATE 10x</button>
+        </div>
+        <div class="card" style="border: 1px solid #25D366;">
+            <p>👥 Invite Friend = ₹10</p>
+            <button class="main-btn" style="background: #25D366; color:#fff;" onclick="shareApp()">INVITE ON WHATSAPP</button>
         </div>
     </div>
 
-    <!-- WALLET SECTION -->
+    <!-- 4. WALLET SECTION -->
     <div id="wallet-section" class="section">
-        <h2>👛 Withdraw</h2>
-        <div class="balance-box"><p>Balance: ₹<span id="wallet-inr">0.00</span></p></div>
+        <h2>👛 WITHDRAW</h2>
+        <div class="balance-box"><p>Available: ₹<span id="wallet-inr">0.00</span></p></div>
         <select id="pay-method">
             <option value="UPI">UPI (GPay, PhonePe, Paytm)</option>
             <option value="USDT">Crypto - USDT (BEP20)</option>
         </select>
-        <input type="text" id="wallet-address" placeholder="Enter Details">
+        <input type="text" id="wallet-address" placeholder="Enter UPI ID or Address">
         <button class="main-btn" onclick="requestWithdraw()">WITHDRAW NOW</button>
+        
+        <br>
+        <a href="mailto:shivtasham4272@gmail.com" class="support-btn">📧 Contact Support</a>
     </div>
 
     <div class="footer" id="main-footer" style="display:none;">
@@ -81,7 +94,9 @@
     </div>
 
     <script>
-        // --- ⚠️ SIRF YE 2 DETAILS BHAREIN ⚠️ ---
+        // ==========================================================
+        // ⚠️ SIRF IN 2 JAGAH APNI FIREBASE DETAILS BHAREIN ⚠️
+        // ==========================================================
         const firebaseConfig = {
             apiKey: "AIzaSyCvKAzu4Nj7IngFHg-VI59ZrIe4DYOmRTw",
             authDomain: "stravhoneybee.firebaseapp.com",
@@ -90,8 +105,8 @@
             messagingSenderId: "940311188604",
             appId: "1:940311188604:web:21c4009a124ecd19c065f9"
         };
-        
-        // Aapke Links Pehle se Set hain
+        // ==========================================================
+
         const MONETAG_BOOST = "https://omg10.com/4/10655169";
         const MONETAG_VIDEO = "https://omg10.com/4/10688923";
         const SHRINKME_10X = "https://shrinkme.click/7FJVZs45";
@@ -122,21 +137,59 @@
         function startMining() {
             if(isMining) return; isMining = true;
             document.getElementById('mine-btn').innerText = "MINING ACTIVE...";
+            document.getElementById('mine-btn').style.opacity = "0.5";
             setInterval(() => {
-                balance += (0.01 * miningMultiplier); updateUI();
+                balance += (0.05 * miningMultiplier); updateUI();
             }, 1000);
             setInterval(() => { if(userDocRef) userDocRef.update({ balance: balance }); }, 20000);
         }
 
         function watchVideoAd() {
             window.open(MONETAG_VIDEO, "_blank");
-            balance += 100; // ₹1 Reward
-            userDocRef.update({ balance: balance });
-            alert("Reward: ₹1 added for watching video!");
-            updateUI();
+            balance += 100; userDocRef.update({ balance: balance });
+            updateUI(); alert("Reward: ₹1 added!");
         }
 
         function boost5x() {
             window.open(MONETAG_BOOST, "_blank");
             miningMultiplier = 5;
             document.getElementById('speed-meter').innerText = "SPEED: 5x 🔥";
+            setTimeout(() => { miningMultiplier = 1; document.getElementById('speed-meter').innerText = "SPEED: 1x"; }, 300000);
+        }
+
+        function boost10x() {
+            window.open(SHRINKME_10X, "_blank");
+            miningMultiplier = 10;
+            document.getElementById('speed-meter').innerText = "SPEED: 10x 🚀";
+            setTimeout(() => { miningMultiplier = 1; document.getElementById('speed-meter').innerText = "SPEED: 1x"; }, 300000);
+        }
+
+        function updateUI() {
+            let inr = (balance / 100).toFixed(2);
+            document.getElementById('display-balance').innerText = Math.floor(balance);
+            document.getElementById('display-inr').innerText = inr;
+            document.getElementById('wallet-inr').innerText = inr;
+        }
+
+        function shareApp() {
+            const msg = "Bhai, ye naya Indian Mining App ₹50 de raha hai! Join kar: https://t.me/StravBee_bot";
+            window.open("https://api.whatsapp.com/send?text=" + encodeURIComponent(msg), "_blank");
+        }
+
+        function requestWithdraw() {
+            const addr = document.getElementById('wallet-address').value;
+            if (balance < 5000) alert("Minimum ₹50 (5000 Coins) needed!");
+            else if(addr.length < 5) alert("Please enter UPI/Address!");
+            else {
+                db.collection("withdrawals").add({ email: auth.currentUser.email, details: addr, method: document.getElementById('pay-method').value, amount_inr: (balance/100).toFixed(2), status: "Pending", date: new Date() });
+                alert("Withdraw Request Sent Successfully!");
+            }
+        }
+
+        function showSection(id) {
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active-section'));
+            document.getElementById(id).classList.add('active-section');
+        }
+    </script>
+</body>
+</html>
