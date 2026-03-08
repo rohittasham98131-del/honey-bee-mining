@@ -3,23 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Strav Honey Bee - Mega Profit</title>
-    
-    <!-- Firebase Libraries -->
+    <title>Strav Honey Bee Network</title>
+    <!-- Firebase -->
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
-
-    <!-- CPAGrip Locker Script -->
-    <script type="text/javascript" src="https://doctoredits.com/script_include.php?id=1879344"></script>
-
-    <!-- Monetag Scripts -->
+    <!-- Monetag -->
     <script>(function(s){s.dataset.zone='10696988',s.src='https://gizokraijaw.net/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
     <script>(function(s){s.dataset.zone='10697008',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+    <!-- CPAGrip -->
+    <script type="text/javascript" src="https://doctoredits.com/script_include.php?id=1879344"></script>
 
     <style>
         body { background-color: #000; color: #fff; font-family: sans-serif; text-align: center; margin: 0; padding-bottom: 90px; user-select: none; }
-        .notice-board { background: #ff3300; color: #fff; padding: 10px; font-size: 13px; font-weight: bold; border-bottom: 2px solid #fff; }
+        .notice-board { background: #ff3300; color: #fff; padding: 10px; font-size: 13px; font-weight: bold; }
         .balance-box { background: linear-gradient(45deg, #222, #111); padding: 25px; border-radius: 25px; margin: 20px auto; width: 85%; border: 1px solid #ffcc00; box-shadow: 0 0 15px rgba(255, 204, 0, 0.3); }
         .balance { font-size: 45px; font-weight: bold; color: #ffcc00; }
         .inr-val { font-size: 20px; color: #00ff00; font-weight: bold; }
@@ -36,7 +33,7 @@
 </head>
 <body>
 
-    <div class="notice-board">⚠️ NOTICE: High earning users must complete 1 App Task every 24h.</div>
+    <div class="notice-board">⚠️ NOTICE: Withdrawal ke liye "Tasks" poora karna zaroori hai!</div>
 
     <!-- Login -->
     <div id="login-screen" style="margin-top: 100px;">
@@ -45,33 +42,33 @@
         <button class="main-btn" onclick="googleLogin()">LOGIN WITH GOOGLE</button>
     </div>
 
-    <!-- Mine -->
+    <!-- Mine Section -->
     <div id="mine-section" class="section">
         <div class="balance-box">
             <div class="balance" id="display-balance">0.00</div>
             <div class="inr-val">≈ ₹<span id="display-inr">0.00</span></div>
             <div id="speed-meter" class="speed-badge">SPEED: 1x</div>
-            <div id="sync-status" style="font-size:10px; color:#00ff00; margin-top:5px;">Cloud Synced ✅</div>
         </div>
         <div class="bee">🐝</div>
         <button class="main-btn" id="mine-btn" onclick="startMining()">START MINING</button>
-        <button class="main-btn" id="boost-btn" style="background: #ff3300; color: #fff;" onclick="boost5x()">⚡ BOOST 5x (Watch Ad)</button>
+        <button class="main-btn" id="video-btn" style="background: #ff00ff; color: #fff;" onclick="watchVideoAd()">📺 WATCH VIDEO (Earn ₹1)</button>
+        <button class="main-btn" style="background: #ff3300; color: #fff;" onclick="boost5x()">⚡ BOOST 5x</button>
     </div>
 
-    <!-- Task -->
+    <!-- Task Section -->
     <div id="task-section" class="section">
         <h2>📋 TASKS</h2>
         <div class="card">
-            <p>Install 1 App = ₹40 (4000 Coins)</p>
+            <p>Install App = ₹40 (4000 Coins)</p>
             <button class="main-btn" style="background: #00ccff; color:#fff;" onclick="call_locker();">GO TO TASKS</button>
         </div>
         <button class="main-btn" style="background: #25D366; color:#fff;" onclick="shareApp()">INVITE FRIENDS (₹10)</button>
     </div>
 
-    <!-- Wallet -->
+    <!-- Wallet Section -->
     <div id="wallet-section" class="section">
         <h2>👛 WALLET</h2>
-        <div class="balance-box">Balance: ₹<span id="wallet-inr">0.00</span></div>
+        <div class="balance-box">Available: ₹<span id="wallet-inr">0.00</span></div>
         <select id="pay-method"><option value="UPI">UPI</option><option value="USDT">USDT</option></select>
         <input type="text" id="wallet-address" placeholder="Enter Details">
         <button class="main-btn" onclick="requestWithdraw()">WITHDRAW NOW</button>
@@ -95,6 +92,7 @@
             messagingSenderId: "940311188604",
             appId: "1:940311188604:web:21c4009a124ecd19c065f9"
         };
+        // ----------------------------
 
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
@@ -113,10 +111,14 @@
                 showSection('mine-section');
                 userDocRef = db.collection("users").doc(user.uid);
                 
-                // LOAD FROM CLOUD
+                // PEHLE DATA LOAD KARO (ASLI FIX)
                 userDocRef.get().then(doc => {
-                    if (doc.exists) { balance = doc.data().balance || 0; updateUI(); }
-                    else { userDocRef.set({ email: user.email, balance: 0 }); }
+                    if (doc.exists) {
+                        balance = doc.data().balance || 0;
+                        updateUI();
+                    } else {
+                        userDocRef.set({ email: user.email, balance: 0 });
+                    }
                 });
             }
         });
@@ -125,33 +127,55 @@
             if (isMining) return;
             isMining = true;
             document.getElementById('mine-btn').innerText = "MINING ACTIVE...";
+            document.getElementById('mine-btn').style.opacity = "0.5";
+
             setInterval(() => {
-                balance += (0.05 * miningMultiplier); updateUI();
+                balance += (0.01 * miningMultiplier); 
+                updateUI();
             }, 1000);
-            
-            // SAVE TO CLOUD EVERY 5 SECONDS (FAST SAVE)
+
+            // FAST CLOUD SAVE (EVERY 5 SECONDS)
             setInterval(() => {
-                if (userDocRef) userDocRef.update({ balance: balance });
+                if (userDocRef) { userDocRef.update({ balance: balance }); }
             }, 5000);
+        }
+
+        function watchVideoAd() {
+            window.open("https://omg10.com/4/10688923", "_blank");
+            balance += 100; // ₹1 Added
+            userDocRef.update({ balance: balance });
+            updateUI();
+            alert("Reward: ₹1 Added!");
+            
+            // 1 Minute Cooldown
+            const vBtn = document.getElementById('video-btn');
+            vBtn.disabled = true; vBtn.style.background = "#444";
+            let sec = 60;
+            let t = setInterval(() => {
+                sec--; vBtn.innerText = `WAIT ${sec}s`;
+                if(sec<=0) { clearInterval(t); vBtn.disabled=false; vBtn.innerText="📺 WATCH VIDEO (Earn ₹1)"; vBtn.style.background="#ff00ff"; }
+            }, 1000);
         }
 
         function boost5x() {
             window.open("https://omg10.com/4/10655169", "_blank");
-            miningMultiplier = 5;
-            document.getElementById('speed-meter').innerText = "SPEED: 5x 🔥";
-            
-            // 1 MINUTE TIMER (SAFE LIMIT)
-            setTimeout(() => {
-                miningMultiplier = 1;
-                document.getElementById('speed-meter').innerText = "SPEED: 1x";
-            }, 60000); 
-            alert("5x Boost active for 1 minute! Keep app open.");
+            miningMultiplier = 5; document.getElementById('speed-meter').innerText = "SPEED: 5x 🔥";
+            setTimeout(() => { miningMultiplier = 1; document.getElementById('speed-meter').innerText = "SPEED: 1x"; }, 300000);
         }
 
-        function shareApp() { window.open("https://api.whatsapp.com/send?text=Earn UPI Cash Daily: https://t.me/StravBee_bot", "_blank"); }
+        function shareApp() { window.open("https://api.whatsapp.com/send?text=Join My Bee Network: https://t.me/StravBee_bot", "_blank"); }
         function showSection(id) { document.querySelectorAll('.section').forEach(s => s.classList.remove('active-section')); document.getElementById(id).classList.add('active-section'); }
         function updateUI() { let inr = (balance / 100).toFixed(2); document.getElementById('display-balance').innerText = Math.floor(balance); document.getElementById('display-inr').innerText = inr; document.getElementById('wallet-inr').innerText = inr; }
-        function requestWithdraw() { if (balance < 5000) alert("Need ₹50!"); else alert("Withdraw Request Sent!"); }
+        
+        function requestWithdraw() {
+            const addr = document.getElementById('wallet-address').value;
+            if (balance < 5000) alert("Need ₹50!");
+            else if(addr.length < 5) alert("Sahi UPI ID dalo!");
+            else {
+                db.collection("withdrawals").add({ email: auth.currentUser.email, details: addr, amount_inr: (balance/100).toFixed(2), status: "Pending", date: new Date() });
+                alert("Withdraw Request Sent!");
+            }
+        }
     </script>
 </body>
 </html>
