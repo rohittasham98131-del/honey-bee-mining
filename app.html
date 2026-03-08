@@ -3,83 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Strav Honey Bee Network</title>
-    <!-- Firebase -->
+    <title>Strav Honey Bee v2.1 - 10x Boost Fixed</title>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
-    <!-- Monetag -->
-    <script>(function(s){s.dataset.zone='10696988',s.src='https://gizokraijaw.net/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
-    <script>(function(s){s.dataset.zone='10697008',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
-    <!-- CPAGrip -->
     <script type="text/javascript" src="https://doctoredits.com/script_include.php?id=1879344"></script>
-
+    <script>(function(s){s.dataset.zone='10696988',s.src='https://gizokraijaw.net/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
     <style>
-        body { background-color: #000; color: #fff; font-family: sans-serif; text-align: center; margin: 0; padding-bottom: 90px; user-select: none; }
-        .notice-board { background: #ff3300; color: #fff; padding: 10px; font-size: 13px; font-weight: bold; }
-        .balance-box { background: linear-gradient(45deg, #222, #111); padding: 25px; border-radius: 25px; margin: 20px auto; width: 85%; border: 1px solid #ffcc00; box-shadow: 0 0 15px rgba(255, 204, 0, 0.3); }
-        .balance { font-size: 45px; font-weight: bold; color: #ffcc00; }
-        .inr-val { font-size: 20px; color: #00ff00; font-weight: bold; }
-        .speed-badge { background: #ffcc00; color: #000; padding: 5px 15px; border-radius: 12px; font-size: 14px; font-weight: bold; margin-top: 10px; display: inline-block; }
-        .bee { font-size: 90px; animation: fly 3s infinite ease-in-out; margin: 15px 0; }
-        @keyframes fly { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-25px); } }
-        .main-btn { background: linear-gradient(45deg, #ffcc00, #ff9900); border: none; padding: 15px 30px; font-size: 18px; font-weight: bold; border-radius: 50px; cursor: pointer; width: 85%; color: #000; margin-top: 10px; }
-        .footer { position: fixed; bottom: 0; width: 100%; background: #111; display: flex; justify-content: space-around; padding: 15px 0; border-top: 1px solid #333; z-index: 1000; }
-        .section { display: none; padding: 20px; }
+        :root { --gold: #ffcc00; --neon-green: #00ff99; --dark-bg: #0a0a0a; }
+        body { background-color: var(--dark-bg); color: #fff; font-family: sans-serif; text-align: center; margin: 0; padding-bottom: 100px; user-select: none; }
+        .header-v2 { background: #111; padding: 15px; border-bottom: 2px solid var(--gold); }
+        .balance-card { background: rgba(255, 255, 255, 0.05); border: 1px solid var(--gold); border-radius: 25px; padding: 25px; margin: 20px auto; width: 85%; }
+        .balance-text { font-size: 45px; font-weight: 800; color: var(--gold); margin: 0; }
+        .speed-tag { background: var(--gold); color: #000; padding: 5px 12px; border-radius: 10px; font-size: 13px; font-weight: bold; margin-top: 10px; display: inline-block; }
+        .bee-img { font-size: 80px; animation: bounce 2s infinite ease-in-out; margin: 20px 0; }
+        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+        .action-btn { border: none; padding: 15px; width: 85%; border-radius: 15px; font-size: 17px; font-weight: bold; color: #000; margin: 8px 0; cursor: pointer; }
+        .gold-btn { background: linear-gradient(135deg, var(--gold), #ff9900); }
+        .purple-btn { background: linear-gradient(135deg, #cc00ff, #7700ff); color: #fff; }
+        .red-btn { background: linear-gradient(135deg, #ff3300, #990000); color: #fff; }
+        .green-btn { background: linear-gradient(135deg, #00c853, #1b5e20); color: #fff; }
+        .nav-bar { position: fixed; bottom: 0; width: 100%; background: #111; display: flex; justify-content: space-around; padding: 15px 0; border-top: 1px solid #333; z-index: 100; }
+        .section { display: none; }
         .active-section { display: block !important; }
-        .card { background: #111; border: 1px solid #333; padding: 20px; border-radius: 20px; margin-bottom: 15px; }
-        input, select { width: 85%; padding: 12px; margin: 10px 0; border-radius: 10px; border: none; background: #222; color: #fff; border: 1px solid #444; }
     </style>
 </head>
 <body>
 
-    <div class="notice-board">⚠️ NOTICE: Withdrawal ke liye "Tasks" poora karna zaroori hai!</div>
+    <div class="header-v2"><h2>Strav Honey Bee v2.1</h2></div>
 
-    <!-- Login -->
-    <div id="login-screen" style="margin-top: 100px;">
-        <div class="bee">🐝</div>
-        <h1 style="color:#ffcc00;">BEE NETWORK</h1>
-        <button class="main-btn" onclick="googleLogin()">LOGIN WITH GOOGLE</button>
+    <!-- 1. LOGIN -->
+    <div id="login-screen" class="active-section" style="margin-top: 50px;">
+        <div class="bee-img">🐝</div>
+        <button class="action-btn gold-btn" onclick="googleLogin()">Sign in with Google</button>
     </div>
 
-    <!-- Mine Section -->
+    <!-- 2. MINE SECTION -->
     <div id="mine-section" class="section">
-        <div class="balance-box">
-            <div class="balance" id="display-balance">0.00</div>
-            <div class="inr-val">≈ ₹<span id="display-inr">0.00</span></div>
-            <div id="speed-meter" class="speed-badge">SPEED: 1x</div>
+        <div class="balance-card">
+            <h1 class="balance-text" id="disp-bal">0</h1>
+            <div style="color:var(--neon-green); font-size:20px;">≈ ₹<span id="disp-inr">0.00</span></div>
+            <div id="speed-meter" class="speed-tag">MINING SPEED: 1x</div>
         </div>
-        <div class="bee">🐝</div>
-        <button class="main-btn" id="mine-btn" onclick="startMining()">START MINING</button>
-        <button class="main-btn" id="video-btn" style="background: #ff00ff; color: #fff;" onclick="watchVideoAd()">📺 WATCH VIDEO (Earn ₹1)</button>
-        <button class="main-btn" style="background: #ff3300; color: #fff;" onclick="boost5x()">⚡ BOOST 5x</button>
+        <div class="bee-img">🐝</div>
+        <button class="action-btn gold-btn" id="mine-btn" onclick="startMining()">START MINING</button>
+        <button class="action-btn purple-btn" id="v-btn" onclick="watchVideo()">📺 WATCH VIDEO (Earn ₹1)</button>
+        <button class="action-btn red-btn" onclick="boost5x()">⚡ 5x BOOST (Watch Ad)</button>
     </div>
 
-    <!-- Task Section -->
+    <!-- 3. TASK SECTION -->
     <div id="task-section" class="section">
-        <h2>📋 TASKS</h2>
-        <div class="card">
-            <p>Install App = ₹40 (4000 Coins)</p>
-            <button class="main-btn" style="background: #00ccff; color:#fff;" onclick="call_locker();">GO TO TASKS</button>
+        <h2>🔥 Mega Tasks</h2>
+        <div class="balance-card">
+            <p>Install & Earn ₹40</p>
+            <button class="action-btn gold-btn" onclick="call_locker()">GO TO TASKS</button>
         </div>
-        <button class="main-btn" style="background: #25D366; color:#fff;" onclick="shareApp()">INVITE FRIENDS (₹10)</button>
+        <div class="balance-card" style="border-color: var(--neon-green);">
+            <p>🚀 10x SUPER BOOST</p>
+            <button class="action-btn green-btn" onclick="boost10x()">ACTIVATE 10x SPEED</button>
+        </div>
     </div>
 
-    <!-- Wallet Section -->
+    <!-- 4. WALLET -->
     <div id="wallet-section" class="section">
-        <h2>👛 WALLET</h2>
-        <div class="balance-box">Available: ₹<span id="wallet-inr">0.00</span></div>
-        <select id="pay-method"><option value="UPI">UPI</option><option value="USDT">USDT</option></select>
-        <input type="text" id="wallet-address" placeholder="Enter Details">
-        <button class="main-btn" onclick="requestWithdraw()">WITHDRAW NOW</button>
+        <h2>👛 Wallet</h2>
+        <div class="balance-card">Available: ₹<span id="wall-inr">0.00</span></div>
+        <input type="text" id="upi-id" style="width:80%; padding:15px; margin:10px; border-radius:10px;" placeholder="Enter UPI ID">
+        <button class="action-btn gold-btn" onclick="withdraw()">WITHDRAW UPI</button>
         <br><br>
-        <a href="https://t.me/Shiv5kumar" target="_blank" style="color:#ffcc00; text-decoration:none;">💬 Contact Admin (@Shiv5kumar)</a>
+        <a href="https://t.me/Shiv5kumar" style="color:var(--gold); text-decoration:none;">💬 Support: @Shiv5kumar</a>
     </div>
 
-    <div class="footer" id="main-footer" style="display:none;">
-        <div onclick="showSection('mine-section')">🏠 Mine</div>
-        <div onclick="showSection('task-section')">📋 Tasks</div>
-        <div onclick="showSection('wallet-section')">👛 Wallet</div>
+    <div class="nav-bar" id="footer" style="display:none;">
+        <div onclick="showTab('mine-section')">🏠 Mine</div>
+        <div onclick="showTab('task-section')">📋 Tasks</div>
+        <div onclick="showTab('wallet-section')">👛 Wallet</div>
     </div>
 
     <script>
@@ -97,7 +95,7 @@
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
         const auth = firebase.auth();
-        let userDocRef, balance = 0, miningMultiplier = 1, isMining = false;
+        let userRef, balance = parseFloat(localStorage.getItem('bal')) || 0, multiplier = 1, isMining = false;
 
         function googleLogin() {
             const provider = new firebase.auth.GoogleAuthProvider();
@@ -106,74 +104,77 @@
 
         auth.onAuthStateChanged(user => {
             if (user) {
-                document.getElementById('login-screen').style.display = 'none';
-                document.getElementById('main-footer').style.display = 'flex';
-                showSection('mine-section');
-                userDocRef = db.collection("users").doc(user.uid);
-                
-                // PEHLE DATA LOAD KARO (ASLI FIX)
-                userDocRef.get().then(doc => {
-                    if (doc.exists) {
-                        balance = doc.data().balance || 0;
-                        updateUI();
-                    } else {
-                        userDocRef.set({ email: user.email, balance: 0 });
-                    }
+                document.getElementById('login-screen').classList.remove('active-section');
+                document.getElementById('footer').style.display = 'flex';
+                showTab('mine-section');
+                userRef = db.collection("users").doc(user.uid);
+                updateUI();
+                userRef.get().then(doc => {
+                    if (doc.exists) { balance = doc.data().balance || 0; updateUI(); }
+                    else { userRef.set({ email: user.email, balance: 0 }); }
                 });
             }
         });
 
         function startMining() {
-            if (isMining) return;
-            isMining = true;
+            if(isMining) return; isMining = true;
             document.getElementById('mine-btn').innerText = "MINING ACTIVE...";
-            document.getElementById('mine-btn').style.opacity = "0.5";
-
             setInterval(() => {
-                balance += (0.01 * miningMultiplier); 
+                balance += (0.01 * multiplier); 
                 updateUI();
+                localStorage.setItem('bal', balance);
             }, 1000);
-
-            // FAST CLOUD SAVE (EVERY 5 SECONDS)
-            setInterval(() => {
-                if (userDocRef) { userDocRef.update({ balance: balance }); }
-            }, 5000);
+            setInterval(() => { if(userRef) userRef.update({ balance: balance }); }, 5000);
         }
 
-        function watchVideoAd() {
+        function watchVideo() {
             window.open("https://omg10.com/4/10688923", "_blank");
-            balance += 100; // ₹1 Added
-            userDocRef.update({ balance: balance });
-            updateUI();
-            alert("Reward: ₹1 Added!");
-            
-            // 1 Minute Cooldown
-            const vBtn = document.getElementById('video-btn');
-            vBtn.disabled = true; vBtn.style.background = "#444";
-            let sec = 60;
-            let t = setInterval(() => {
-                sec--; vBtn.innerText = `WAIT ${sec}s`;
-                if(sec<=0) { clearInterval(t); vBtn.disabled=false; vBtn.innerText="📺 WATCH VIDEO (Earn ₹1)"; vBtn.style.background="#ff00ff"; }
-            }, 1000);
+            const btn = document.getElementById('v-btn');
+            btn.disabled = true;
+            setTimeout(() => { 
+                balance += 100; updateUI(); userRef.update({ balance: balance });
+                btn.disabled = false; btn.innerText = "📺 VIDEO AD (Earn ₹1)";
+            }, 60000);
         }
 
         function boost5x() {
             window.open("https://omg10.com/4/10655169", "_blank");
-            miningMultiplier = 5; document.getElementById('speed-meter').innerText = "SPEED: 5x 🔥";
-            setTimeout(() => { miningMultiplier = 1; document.getElementById('speed-meter').innerText = "SPEED: 1x"; }, 300000);
+            multiplier = 5;
+            document.getElementById('speed-meter').innerText = "SPEED: 5x 🔥";
+            setTimeout(() => { multiplier = 1; document.getElementById('speed-meter').innerText = "SPEED: 1x"; }, 300000);
         }
 
-        function shareApp() { window.open("https://api.whatsapp.com/send?text=Join My Bee Network: https://t.me/StravBee_bot", "_blank"); }
-        function showSection(id) { document.querySelectorAll('.section').forEach(s => s.classList.remove('active-section')); document.getElementById(id).classList.add('active-section'); }
-        function updateUI() { let inr = (balance / 100).toFixed(2); document.getElementById('display-balance').innerText = Math.floor(balance); document.getElementById('display-inr').innerText = inr; document.getElementById('wallet-inr').innerText = inr; }
-        
-        function requestWithdraw() {
-            const addr = document.getElementById('wallet-address').value;
-            if (balance < 5000) alert("Need ₹50!");
-            else if(addr.length < 5) alert("Sahi UPI ID dalo!");
+        function boost10x() {
+            // Shortlink wala link
+            window.open("https://shrinkme.click/7FJVZs45", "_blank");
+            multiplier = 10;
+            document.getElementById('speed-meter').innerText = "SPEED: 10x 🚀🚀";
+            document.getElementById('speed-meter').style.background = "#00c853";
+            alert("10x SUPER BOOST ACTIVE!");
+            setTimeout(() => { 
+                multiplier = 1; 
+                document.getElementById('speed-meter').innerText = "SPEED: 1x";
+                document.getElementById('speed-meter').style.background = "#ffcc00";
+            }, 300000);
+        }
+
+        function updateUI() {
+            let inr = (balance / 100).toFixed(2);
+            document.getElementById('disp-bal').innerText = Math.floor(balance);
+            document.getElementById('disp-inr').innerText = inr;
+            document.getElementById('wall-inr').innerText = inr;
+        }
+
+        function showTab(id) {
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active-section'));
+            document.getElementById(id).classList.add('active-section');
+        }
+
+        function withdraw() {
+            if(balance < 5000) alert("Min ₹50 needed!");
             else {
-                db.collection("withdrawals").add({ email: auth.currentUser.email, details: addr, amount_inr: (balance/100).toFixed(2), status: "Pending", date: new Date() });
-                alert("Withdraw Request Sent!");
+                db.collection("withdrawals").add({ email: auth.currentUser.email, upi: document.getElementById('upi-id').value, amount: (balance/100).toFixed(2), status: "Pending", date: new Date() });
+                alert("Withdrawal Sent!");
             }
         }
     </script>
