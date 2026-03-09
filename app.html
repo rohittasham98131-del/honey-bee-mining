@@ -3,90 +3,92 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Strav Honey Bee Network - Pro</title>
-    
-    <!-- Firebase SDKs -->
+    <title>Bee Network PRO - Ultimate</title>
+    <!-- Firebase -->
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
-
-    <!-- ⬇️ AAPKA NAYA CPAGRIP VIDEO LOCKER SCRIPT ⬇️ -->
-    <script type="text/javascript" src="https://doctoredits.com/script_include.php?id=1881581"></script>
+    <!-- CPAGrip Locker -->
+    <script type="text/javascript" src="https://doctoredits.com/script_include.php?id=1879344"></script>
+    <!-- Monetag -->
+    <script>(function(s){s.dataset.zone='10696988',s.src='https://gizokraijaw.net/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
 
     <style>
-        :root { --gold: #ffcc00; --green: #00ff99; --bg: #000; }
-        body { background-color: var(--bg); color: #fff; font-family: sans-serif; text-align: center; margin: 0; padding-bottom: 90px; user-select: none; }
+        :root { --gold: #ffcc00; --green: #00ff99; --dark: #0a0a0a; }
+        body { background-color: var(--dark); color: #fff; font-family: sans-serif; text-align: center; margin: 0; padding-bottom: 90px; user-select: none; }
         .notice { background: #ff3300; padding: 10px; font-size: 12px; font-weight: bold; border-bottom: 1px solid #fff; }
-        .balance-box { background: linear-gradient(145deg, #1a1a1a, #000); padding: 25px; border-radius: 25px; margin: 20px auto; width: 85%; border: 1px solid var(--gold); box-shadow: 0 0 20px rgba(255, 204, 0, 0.2); }
-        .balance { font-size: 45px; font-weight: bold; color: var(--gold); }
-        .inr { font-size: 20px; color: var(--green); font-weight: bold; }
-        .bee { font-size: 90px; animation: fly 3s infinite ease-in-out; margin: 20px 0; }
-        @keyframes fly { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
-        .main-btn { background: linear-gradient(45deg, var(--gold), #ff9900); border: none; padding: 15px; font-size: 18px; font-weight: bold; border-radius: 50px; cursor: pointer; width: 85%; color: #000; margin-top: 10px; }
+        .balance-card { background: linear-gradient(145deg, #1a1a1a, #000); padding: 25px; border-radius: 25px; margin: 20px auto; width: 85%; border: 1px solid var(--gold); box-shadow: 0 0 20px rgba(255, 204, 0, 0.2); }
+        .bal-points { font-size: 45px; font-weight: 900; color: var(--gold); margin: 0; }
+        .bal-inr { font-size: 20px; color: var(--green); font-weight: 600; }
+        .speed-badge { background: var(--gold); color: #000; padding: 5px 12px; border-radius: 10px; font-size: 13px; font-weight: bold; margin-top: 10px; display: inline-block; }
+        .action-btn { border: none; padding: 15px; width: 85%; border-radius: 15px; font-size: 17px; font-weight: bold; color: #000; margin: 8px 0; cursor: pointer; transition: 0.3s; }
+        .btn-gold { background: linear-gradient(45deg, var(--gold), #ffa500); }
+        .btn-purple { background: linear-gradient(45deg, #cc00ff, #7700ff); color: #fff; }
+        .btn-red { background: linear-gradient(45deg, #ff3300, #990000); color: #fff; }
+        .btn-green { background: linear-gradient(45deg, #00c853, #1b5e20); color: #fff; }
         .footer { position: fixed; bottom: 0; width: 100%; background: #111; display: flex; justify-content: space-around; padding: 15px 0; border-top: 1px solid #333; z-index: 1000; }
-        .section { display: none; padding: 20px; }
+        .section { display: none; padding: 10px; }
         .active-section { display: block !important; }
         input, select { width: 85%; padding: 12px; margin: 10px 0; border-radius: 10px; border: none; background: #222; color: #fff; border: 1px solid #444; }
     </style>
 </head>
 <body>
 
-    <div class="notice">⚠️ Verify Task to Unlock ₹50 UPI Withdrawal!</div>
+    <div class="notice">⚠️ Complete 1 Task to Unlock ₹50 UPI Withdrawal!</div>
 
-    <!-- 1. LOGIN SCREEN -->
-    <div id="login-screen" style="margin-top: 100px;">
-        <div class="bee">🐝</div>
-        <h1 style="color:var(--gold);">BEE NETWORK</h1>
-        <button class="main-btn" onclick="googleLogin()">LOGIN WITH GOOGLE</button>
+    <!-- 1. LOGIN -->
+    <div id="login-screen" class="active-section" style="margin-top: 100px;">
+        <div style="font-size: 80px;">🐝</div>
+        <h1>BEE NETWORK PRO</h1>
+        <button class="action-btn btn-gold" onclick="googleLogin()">Login with Google</button>
     </div>
 
     <!-- 2. MINE SECTION -->
     <div id="mine-section" class="section">
-        <div class="balance-box">
-            <div class="balance" id="display-balance">0.00</div>
-            <div class="inr">≈ ₹<span id="display-inr">0.00</span></div>
-            <div id="sync-msg" style="font-size:10px; color:var(--green); margin-top:5px;">Cloud Synced ✅</div>
+        <div class="balance-card">
+            <h1 class="bal-points" id="disp-bal">0</h1>
+            <div class="bal-inr">≈ ₹<span id="disp-inr">0.00</span></div>
+            <div id="speed-meter" class="speed-badge">SPEED: 1x</div>
         </div>
-        <div class="bee">🐝</div>
-        <button class="main-btn" id="mine-btn" onclick="startMining()">START MINING</button>
-        
-        <!-- MEGA REWARD BUTTON (Paisa Engine) -->
-        <button class="main-btn" style="background: #ff00ff; color:#fff;" onclick="startMegaTask()">📺 WATCH & EARN ₹25</button>
+        <div style="font-size: 80px; animation: bounce 2s infinite;">🐝</div>
+        <button class="action-btn btn-gold" id="mine-btn" onclick="startMining()">START MINING</button>
+        <button class="action-btn btn-purple" id="v-btn" onclick="watchVideo()">📺 WATCH VIDEO (Earn ₹1)</button>
+        <button class="action-btn btn-red" onclick="boost5x()">⚡ 5x BOOST (Watch Ad)</button>
     </div>
 
     <!-- 3. TASK SECTION -->
     <div id="task-section" class="section">
-        <h2>📋 TASKS</h2>
-        <div class="balance-box" style="text-align:left; padding:15px;">
-            <h4 style="margin:0; color:var(--gold);">Mega App Offer</h4>
-            <p style="font-size:13px;">Install 1 App from list and get ₹40 instantly.</p>
-            <button class="main-btn" style="width:100%; font-size:14px;" onclick="call_locker();">OPEN TASK WALL</button>
+        <h2>📋 Earning Tasks</h2>
+        <div class="balance-card">
+            <p>Mega Offer: Install & Earn ₹40</p>
+            <button class="action-btn btn-gold" onclick="call_locker()">GO TO TASKS</button>
         </div>
-        <button class="main-btn" style="background:#25D366; color:#fff;" onclick="shareApp()">INVITE FRIENDS (₹10)</button>
+        <div class="balance-card" style="border-color: var(--green);">
+            <p>🚀 10x SUPER BOOST (5 Mins)</p>
+            <button class="action-btn btn-green" onclick="boost10x()">ACTIVATE 10x SPEED</button>
+        </div>
+        <button class="action-btn btn-green" style="background:#25D366;" onclick="share()">INVITE FRIENDS (₹10)</button>
     </div>
 
     <!-- 4. WALLET SECTION -->
     <div id="wallet-section" class="section">
-        <h2>👛 WITHDRAW</h2>
-        <div class="balance-box">Balance: ₹<span id="wallet-inr">0.00</span></div>
+        <h2>👛 Withdraw Money</h2>
+        <div class="balance-card">Available: ₹<span id="wall-inr">0.00</span></div>
         <select id="pay-method"><option value="UPI">UPI (GPay/PhonePe)</option><option value="USDT">USDT (BEP20)</option></select>
-        <input type="text" id="wallet-address" placeholder="Enter ID or Address">
-        <button class="main-btn" onclick="requestWithdraw()">WITHDRAW NOW</button>
+        <input type="text" id="upi-id" placeholder="Enter Details">
+        <button class="action-btn btn-gold" onclick="withdraw()">WITHDRAW NOW</button>
         <br><br>
-        <a href="https://t.me/Shiv5kumar" target="_blank" style="color:var(--gold); text-decoration:none; font-weight:bold;">💬 Contact Admin Support</a>
+        <a href="https://t.me/Shiv5kumar" target="_blank" style="color:var(--gold); text-decoration:none; font-weight:bold;">💬 Contact Support (@Shiv5kumar)</a>
     </div>
 
-    <!-- Navigation -->
     <div class="footer" id="main-footer" style="display:none;">
-        <div onclick="showSection('mine-section')">🏠 Mine</div>
-        <div onclick="showSection('task-section')">📋 Tasks</div>
-        <div onclick="showSection('wallet-section')">👛 Wallet</div>
+        <div onclick="showTab('mine-section')">🏠 Mine</div>
+        <div onclick="showTab('task-section')">📋 Tasks</div>
+        <div onclick="showTab('wallet-section')">👛 Wallet</div>
     </div>
 
     <script>
-        // ==========================================
-        // ⚠️ SIRF YE 2 DETAILS BHAREIN ⚠️
-        // ==========================================
+        // --- ⚠️ CONFIG BHAREIN ⚠️ ---
         const firebaseConfig = {
             apiKey: "AIzaSyCvKAzu4Nj7IngFHg-VI59ZrIe4DYOmRTw",
             authDomain: "stravhoneybee.firebaseapp.com",
@@ -95,12 +97,12 @@
             messagingSenderId: "940311188604",
             appId: "1:940311188604:web:21c4009a124ecd19c065f9"
         };
-        // ==========================================
+        // ----------------------------
 
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
         const auth = firebase.auth();
-        let userDocRef, balance = parseFloat(localStorage.getItem('bee_bal')) || 0, miningMultiplier = 1, isMining = false;
+        let userRef, balance = parseFloat(localStorage.getItem('bee_bal')) || 0, multiplier = 1, isMining = false;
 
         function googleLogin() {
             const provider = new firebase.auth.GoogleAuthProvider();
@@ -109,21 +111,14 @@
 
         auth.onAuthStateChanged(user => {
             if (user) {
-                document.getElementById('login-screen').style.display = 'none';
+                document.getElementById('login-screen').classList.remove('active-section');
                 document.getElementById('main-footer').style.display = 'flex';
-                showSection('mine-section');
-                userDocRef = db.collection("users").doc(user.uid);
+                showTab('mine-section');
+                userRef = db.collection("users").doc(user.uid);
                 updateUI();
-                
-                // LOAD FROM CLOUD (FIXED)
-                userDocRef.get().then(doc => {
-                    if (doc.exists) { 
-                        balance = doc.data().balance; 
-                        localStorage.setItem('bee_bal', balance);
-                        updateUI(); 
-                    } else {
-                        userDocRef.set({ email: user.email, balance: 0 });
-                    }
+                userRef.get().then(doc => {
+                    if (doc.exists) { balance = doc.data().balance; localStorage.setItem('bee_bal', balance); updateUI(); }
+                    else { userRef.set({ email: user.email, balance: 0 }); }
                 });
             }
         });
@@ -132,41 +127,58 @@
             if(isMining) return; isMining = true;
             document.getElementById('mine-btn').innerText = "MINING ACTIVE...";
             setInterval(() => {
-                balance += (0.01 * miningMultiplier); 
+                balance += (0.01 * multiplier); 
                 updateUI();
                 localStorage.setItem('bee_bal', balance);
             }, 1000);
-            // Save to Cloud every 10 seconds
-            setInterval(() => { if(userDocRef) userDocRef.update({ balance: balance }); }, 10000);
+            setInterval(() => { if(userRef) userRef.update({ balance: balance }); }, 5000);
         }
 
-        function startMegaTask() {
-            // 1. Pehle Monetag Ad (Profit 1)
+        function watchVideo() {
             window.open("https://omg10.com/4/10688923", "_blank");
-            alert("Ad watched! Now complete the task to get ₹25.");
-            // 2. Phir CPAGrip Locker (Profit 2)
-            setTimeout(() => { call_locker(); }, 2000);
+            const btn = document.getElementById('v-btn');
+            btn.disabled = true; btn.style.opacity = "0.5";
+            let s = 60;
+            let t = setInterval(() => {
+                s--; btn.innerText = `WAIT ${s}s`;
+                if(s<=0) { 
+                    clearInterval(t); btn.disabled=false; btn.style.opacity="1"; btn.innerText="📺 WATCH VIDEO (Earn ₹1)"; 
+                    balance += 100; updateUI(); userRef.update({ balance: balance });
+                }
+            }, 1000);
+        }
+
+        function boost5x() {
+            window.open("https://omg10.com/4/10655169", "_blank");
+            multiplier = 5; document.getElementById('speed-meter').innerText = "SPEED: 5x 🔥";
+            setTimeout(() => { multiplier = 1; document.getElementById('speed-meter').innerText = "SPEED: 1x"; }, 300000);
+        }
+
+        function boost10x() {
+            window.open("https://shrinkme.click/7FJVZs45", "_blank");
+            multiplier = 10; document.getElementById('speed-meter').innerText = "SPEED: 10x 🚀🚀";
+            document.getElementById('speed-meter').style.background = "#00ff99";
+            setTimeout(() => { multiplier = 1; document.getElementById('speed-meter').innerText = "SPEED: 1x"; document.getElementById('speed-meter').style.background = "#ffcc00"; }, 300000);
         }
 
         function updateUI() {
             let inr = (balance / 100).toFixed(2);
-            document.getElementById('display-balance').innerText = Math.floor(balance);
-            document.getElementById('display-inr').innerText = inr;
-            document.getElementById('wallet-inr').innerText = inr;
+            document.getElementById('disp-bal').innerText = Math.floor(balance);
+            document.getElementById('disp-inr').innerText = inr;
+            document.getElementById('wall-inr').innerText = inr;
         }
 
-        function showSection(id) {
+        function showTab(id) {
             document.querySelectorAll('.section').forEach(s => s.classList.remove('active-section'));
             document.getElementById(id).classList.add('active-section');
         }
 
-        function shareApp() { window.open("https://api.whatsapp.com/send?text=Earn UPI Cash Daily: https://t.me/StravBee_bot", "_blank"); }
+        function share() { window.open("https://api.whatsapp.com/send?text=Join My Bee Network: https://t.me/StravBee_bot", "_blank"); }
 
-        function requestWithdraw() {
-            const addr = document.getElementById('wallet-address').value;
-            if (balance < 5000) alert("Bhai ₹50 (5000 Coins) chahiye!");
+        function withdraw() {
+            if(balance < 5000) alert("Min ₹50 needed!");
             else {
-                db.collection("withdrawals").add({ email: auth.currentUser.email, details: addr, method: document.getElementById('pay-method').value, amount_inr: (balance/100).toFixed(2), status: "Pending", date: new Date() });
+                db.collection("withdrawals").add({ email: auth.currentUser.email, upi: document.getElementById('upi-id').value, method: document.getElementById('pay-method').value, amount: (balance/100).toFixed(2), status: "Pending", date: new Date() });
                 alert("Withdraw Request Sent!");
             }
         }
