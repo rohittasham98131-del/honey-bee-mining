@@ -3,114 +3,114 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bee Network PRO v5.0</title>
-    <!-- Firebase -->
+    <title>Wealth Runner PRO - Multi Earning Hub</title>
+    
+    <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
-    <!-- Ads -->
+
+    <!-- Ad & Task Scripts -->
     <script type="text/javascript" src="https://doctoredits.com/script_include.php?id=1879344"></script>
     <script>(function(s){s.dataset.zone='10696988',s.src='https://gizokraijaw.net/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
 
     <style>
-        :root { --gold: #ffcc00; --neon: #00ffcc; --bg: #000; }
-        body { background: var(--bg); color: #fff; font-family: sans-serif; text-align: center; margin: 0; padding-bottom: 80px; overflow-x: hidden; }
+        :root { --gold: #ffcc00; --neon: #00ffcc; --dark: #0a0a0a; --red: #ff3300; }
+        body { background: var(--dark); color: #fff; font-family: 'Segoe UI', sans-serif; margin: 0; padding-bottom: 90px; user-select: none; overflow-x: hidden; }
         
-        .balance-card { background: linear-gradient(145deg, #1a1a1a, #000); border: 2px solid var(--gold); border-radius: 25px; padding: 20px; margin: 15px auto; width: 85%; box-shadow: 0 0 20px rgba(255, 204, 0, 0.2); }
-        .bal-points { font-size: 40px; font-weight: 900; color: var(--gold); margin:0; }
-        .speed-badge { background: var(--gold); color: #000; padding: 4px 12px; border-radius: 10px; font-size: 12px; font-weight: bold; margin-top: 5px; display: inline-block; }
+        /* Premium UI Components */
+        .header { background: #111; padding: 15px; border-bottom: 2px solid var(--gold); }
+        .balance-card { background: linear-gradient(145deg, #1a1a1a, #000); border: 2px solid var(--gold); border-radius: 25px; padding: 20px; margin: 15px auto; width: 85%; }
+        .points { font-size: 40px; font-weight: 900; color: var(--gold); margin: 0; }
+        .inr { font-size: 20px; color: var(--neon); font-weight: bold; }
         
-        .action-btn { border: none; padding: 14px; width: 90%; border-radius: 12px; font-size: 16px; font-weight: bold; cursor: pointer; margin: 6px 0; }
-        .btn-gold { background: linear-gradient(45deg, var(--gold), #ff9900); color: #000; }
+        .main-btn { border: none; padding: 15px; width: 90%; border-radius: 15px; font-size: 17px; font-weight: bold; cursor: pointer; margin: 8px 0; transition: 0.2s; }
+        .btn-gold { background: var(--gold); color: #000; }
         .btn-purple { background: #cc00ff; color: #fff; }
-        .btn-blue { background: #00ccff; color: #fff; }
         
-        /* Game Board */
-        #game-board { display: grid; grid-template-columns: repeat(5, 1fr); gap: 5px; width: 280px; margin: 15px auto; background: #111; padding: 10px; border-radius: 15px; border: 1px solid #333; }
-        .cell { width: 50px; height: 50px; background: #222; display: flex; align-items: center; justify-content: center; font-size: 22px; border-radius: 8px; cursor: pointer; transition: 0.2s; }
-        .cell:active { transform: scale(0.8); }
+        /* 🎮 Game & Ludo Styles */
+        #game-canvas { background: #111; border: 2px solid #333; border-radius: 15px; margin-top: 10px; width: 300px; height: 300px; touch-action: none; }
+        .ludo-room { background: #151515; border: 1px solid #333; padding: 15px; border-radius: 15px; margin: 10px; text-align: left; }
 
-        .footer { position: fixed; bottom: 0; width: 100%; background: #111; display: flex; justify-content: space-around; padding: 15px 0; border-top: 1px solid #333; z-index: 9999; }
-        .section { display: none; padding: 10px; }
+        .footer { position: fixed; bottom: 0; width: 100%; background: #111; display: flex; justify-content: space-around; padding: 15px 0; border-top: 1px solid #333; z-index: 1000; }
+        .section { display: none; padding: 10px; animation: fadeIn 0.3s ease; }
         .active-section { display: block !important; }
-        #login-screen { position: fixed; top:0; left:0; width:100%; height:100%; background:#000; z-index: 10000; display: flex; flex-direction: column; justify-content: center; align-items: center; }
-        input { width: 80%; padding: 12px; margin: 10px 0; border-radius: 10px; border: none; background: #222; color: #fff; border: 1px solid #444; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        #login-screen { position: fixed; top:0; left:0; width:100%; height:100%; background:#000; z-index: 10001; display:flex; flex-direction:column; justify-content:center; align-items:center; }
     </style>
 </head>
 <body>
 
-    <!-- 1. LOGIN (FULL SCREEN LOCK) -->
+    <!-- 1. LOGIN SCREEN -->
     <div id="login-screen">
-        <div style="font-size: 80px;">🐝</div>
-        <h1 style="color:var(--gold);">BEE NETWORK PRO</h1>
-        <p>Login to Claim ₹50 Bonus</p>
-        <button class="action-btn btn-gold" onclick="googleLogin()">LOGIN WITH GOOGLE</button>
+        <h1 style="color:var(--gold);">🏃 WEALTH RUNNER PRO</h1>
+        <p>Login to Claim ₹50 Signup Bonus!</p>
+        <button class="main-btn btn-gold" onclick="googleLogin()">LOGIN WITH GOOGLE</button>
     </div>
 
     <!-- 2. MINE SECTION -->
     <div id="mine-section" class="section">
         <div class="balance-card">
-            <h1 class="bal-points" id="disp-bal">0</h1>
-            <div style="color:var(--neon);">≈ ₹<span id="disp-inr">0.00</span></div>
-            <div id="speed-meter" class="speed-badge">SPEED: 1x</div>
+            <h1 class="points" id="disp-bal">5000</h1>
+            <div class="inr">≈ ₹<span id="disp-inr">50.00</span></div>
+            <div id="speed-tag" style="font-size:12px; margin-top:8px; color:var(--gold);">SPEED: 1x (Auto Mining)</div>
         </div>
-        <div style="font-size: 70px; animation: bounce 2s infinite;">🐝</div>
-        <button class="action-btn btn-gold" id="mine-btn" onclick="startMining()">⚡ START MINING</button>
-        <button class="action-btn btn-purple" onclick="watchVideo()">📺 WATCH VIDEO (Earn ₹1)</button>
-        <button class="action-btn" style="background: red; color:white;" onclick="boost5x()">🔥 5x BOOST SPEED</button>
+        <button class="main-btn btn-gold" id="mine-btn" onclick="startMining()">⚡ START MINING</button>
+        <button class="main-btn btn-purple" id="video-btn" onclick="watchVideo()">📺 WATCH VIDEO (Earn ₹1)</button>
+        <button class="main-btn" style="background:var(--red); color:#fff;" onclick="boost5x()">🔥 5x SPEED BOOST</button>
     </div>
 
-    <!-- 3. GAME SECTION (CANDY CRUSH STYLE) -->
+    <!-- 3. RUNNER GAME SECTION -->
     <div id="game-section" class="section">
-        <h2 style="color:var(--gold);">🎮 BEE CRUSH GAME</h2>
-        <div id="game-board"></div>
-        <p>Score: <span id="game-score">0</span> | Coins: <span id="game-earned" style="color:var(--neon);">0</span></p>
-        <button class="action-btn btn-blue" onclick="initGame()">RESET GAME</button>
+        <h3 style="color:var(--gold);">🎮 WEALTH RUNNER</h3>
+        <p style="font-size:12px;">Tap to Jump! Earn 1 Coin per Obstacle.</p>
+        <canvas id="game-canvas" width="300" height="300"></canvas>
+        <button class="main-btn btn-gold" onclick="initGame()">RESTART & WATCH AD</button>
     </div>
 
-    <!-- 4. TASKS SECTION -->
-    <div id="task-section" class="section">
-        <h2>📋 EXTRA EARNINGS</h2>
-        <div class="balance-card">
-            <p>MEGA TASK: Install & Get ₹40</p>
-            <button class="action-btn btn-gold" onclick="call_locker()">GO TO TASKS</button>
+    <!-- 4. LUDO P2P SECTION -->
+    <div id="ludo-section" class="section">
+        <h2 style="color:var(--gold);">🎲 LUDO CHALLENGE</h2>
+        <div class="ludo-room">
+            <h4 style="margin:0;">Create a Challenge</h4>
+            <p style="font-size:12px;">Fee: 500 Coins (₹5) | Prize: 900 Coins (₹9)</p>
+            <button class="main-btn btn-gold" style="width:100%;" onclick="alert('Searching for online opponent...')">CREATE ROOM</button>
         </div>
-        <div class="balance-card" style="border-color:var(--neon);">
-            <p>🚀 10x SUPER BOOST (Watch Link)</p>
-            <button class="action-btn btn-blue" style="background:var(--neon); color:#000;" onclick="boost10x()">ACTIVATE 10x</button>
+        <div class="ludo-room" style="border-color:var(--neon);">
+            <h4 style="margin:0; color:var(--neon);">Live Rooms</h4>
+            <p style="font-size:12px;">User_Shiv is waiting... (Fee: ₹10)</p>
+            <button class="main-btn" style="background:var(--neon); color:#000; width:100%;" onclick="alert('Joining...')">JOIN & PLAY</button>
         </div>
     </div>
 
     <!-- 5. WALLET -->
     <div id="wallet-section" class="section">
         <h2>👛 WITHDRAW</h2>
-        <div class="balance-card">Balance: ₹<span id="wall-inr">0.00</span></div>
-        <input type="text" id="upi" placeholder="Enter UPI ID">
-        <button class="action-btn btn-gold" onclick="withdraw()">WITHDRAW NOW</button>
+        <div class="balance-card">Available: ₹<span id="wall-inr">50.00</span></div>
+        <input type="text" id="upi" placeholder="Enter UPI ID (e.g. name@ybl)">
+        <button class="main-btn btn-gold" onclick="withdraw()">WITHDRAW NOW</button>
         <br><br>
-        <a href="https://t.me/Shiv5kumar" style="color:var(--gold); text-decoration:none;">💬 Support: @Shiv5kumar</a>
+        <a href="https://t.me/Shiv5kumar" style="color:var(--gold); text-decoration:none; font-weight:bold;">💬 Contact Support (@Shiv5kumar)</a>
     </div>
 
-    <!-- FOOTER NAVIGATION -->
-    <div class="footer" id="main-footer" style="display:none;">
+    <!-- NAVIGATION -->
+    <div class="footer" id="footer-menu" style="display:none;">
         <div onclick="showTab('mine-section')">🏠 Mine</div>
         <div onclick="showTab('game-section')">🎮 Play</div>
-        <div onclick="showTab('task-section')">📋 Tasks</div>
+        <div onclick="showTab('ludo-section')">🎲 Ludo</div>
         <div onclick="showTab('wallet-section')">👛 Wallet</div>
     </div>
 
     <script>
-        const firebaseConfig = { 
-            apiKey: "AIzaSyCvKAzu4Nj7IngFHg-VI59ZrIe4DYOmRTw", 
-            authDomain: "stravhoneybee.firebaseapp.com", 
-            projectId: "stravhoneybee", 
-            appId: "1:940311188604:web:21c4009a124ecd19c065f9" 
-        };
+        // --- ⚠️ APNI FIREBASE DETAILS BHAREIN ⚠️ ---
+        const firebaseConfig = { apiKey: "AIzaSyCvKAzu4Nj7IngFHg-VI59ZrIe4DYOmRTw", authDomain: "stravhoneybee.firebaseapp.com", projectId: "stravhoneybee", appId: "1:940311188604:web:21c4009a124ecd19c065f9" };
+        const MONETAG_LINK = "https://omg10.com/4/10688923";
+        const BOOST_LINK = "https://omg10.com/4/10655169";
 
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
         const auth = firebase.auth();
-        let userRef, balance = parseFloat(localStorage.getItem('bee_bal')) || 0, multiplier = 1, isMining = false;
+        let userRef, balance = parseFloat(localStorage.getItem('run_bal')) || 0, multiplier = 1, isMining = false;
 
         function googleLogin() {
             const provider = new firebase.auth.GoogleAuthProvider();
@@ -120,19 +120,13 @@
         auth.onAuthStateChanged(user => {
             if (user) {
                 document.getElementById('login-screen').style.display = 'none';
-                document.getElementById('main-footer').style.display = 'flex';
+                document.getElementById('footer-menu').style.display = 'flex';
                 showTab('mine-section');
                 userRef = db.collection("users").doc(user.uid);
                 updateUI();
                 userRef.get().then(doc => {
-                    if (doc.exists) { 
-                        balance = doc.data().balance; 
-                        localStorage.setItem('bee_bal', balance);
-                        updateUI(); 
-                    } else {
-                        userRef.set({ email: user.email, balance: 5000 });
-                        balance = 5000; updateUI();
-                    }
+                    if (doc.exists) { balance = doc.data().balance; localStorage.setItem('run_bal', balance); updateUI(); }
+                    else { userRef.set({ email: user.email, balance: 5000 }); balance = 5000; updateUI(); }
                 });
             }
         });
@@ -143,34 +137,60 @@
             setInterval(() => {
                 balance += (0.01 * multiplier); 
                 updateUI();
-                localStorage.setItem('bee_bal', balance);
+                localStorage.setItem('run_bal', balance);
             }, 1000);
-            setInterval(() => { if(userRef) userRef.update({ balance: balance }); }, 5000);
+            setInterval(() => { if(userRef) userRef.update({ balance: balance }); }, 7000);
         }
 
-        // --- 📺 ADS & BOOSTS ---
-        function watchVideo() { window.open("https://omg10.com/4/10688923", "_blank"); balance += 100; updateUI(); }
-        function boost5x() { window.open("https://omg10.com/4/10655169", "_blank"); multiplier = 5; document.getElementById('speed-meter').innerText="SPEED: 5x 🔥"; setTimeout(()=>{ multiplier=1; document.getElementById('speed-meter').innerText="SPEED: 1x";}, 300000); }
-        function boost10x() { window.open("https://shrinkme.click/7FJVZs45", "_blank"); multiplier = 10; document.getElementById('speed-meter').innerText="SPEED: 10x 🚀"; setTimeout(()=>{ multiplier=1; document.getElementById('speed-meter').innerText="SPEED: 1x";}, 300000); }
-
-        // --- 🎮 BEE CRUSH GAME ---
-        const gameItems = ['🐝', '🍯', '🌸', '💎', '🍎'];
-        let score = 0;
-        function initGame() {
-            const board = document.getElementById('game-board'); board.innerHTML = ''; score = 0;
-            for (let i = 0; i < 25; i++) {
-                const cell = document.createElement('div'); cell.className = 'cell';
-                cell.innerText = gameItems[Math.floor(Math.random()*gameItems.length)];
-                cell.onclick = () => {
-                    score += 10; balance += 1; updateUI();
-                    document.getElementById('game-score').innerText = score;
-                    document.getElementById('game-earned').innerText = (score/10);
-                    cell.innerText = gameItems[Math.floor(Math.random()*gameItems.length)];
-                    if(score % 100 === 0) window.open("https://omg10.com/4/10655169", "_blank");
-                };
-                board.appendChild(cell);
-            }
+        function watchVideo() {
+            window.open(MONETAG_LINK, "_blank");
+            const btn = document.getElementById('video-btn');
+            btn.disabled = true; btn.style.background = "#444";
+            let s = 60;
+            let t = setInterval(() => {
+                s--; btn.innerText = `WAIT ${s}s`;
+                if(s<=0) { clearInterval(t); btn.disabled=false; btn.innerText="📺 WATCH VIDEO (Earn ₹1)"; btn.style.background="#ff00ff"; balance += 100; updateUI(); }
+            }, 1000);
         }
+
+        function boost5x() {
+            window.open(BOOST_LINK, "_blank");
+            multiplier = 5; document.getElementById('speed-tag').innerText = "SPEED: 5x 🔥";
+            setTimeout(() => { multiplier = 1; document.getElementById('speed-tag').innerText = "SPEED: 1x"; }, 300000);
+        }
+
+        // --- 🏃 SUBWAY RUNNER GAME ENGINE ---
+        const canvas = document.getElementById('game-canvas');
+        const ctx = canvas.getContext('2d');
+        let runner = { x: 50, y: 240, w: 30, h: 40, dy: 0, jump: -10, ground: 240 };
+        let obstacles = []; let frame = 0; let gScore = 0;
+
+        function initGame() { 
+            obstacles = []; gScore = 0; runner.y = 240; 
+            window.open(BOOST_LINK, "_blank"); // Profit on restart
+        }
+
+        function gameLoop() {
+            ctx.clearRect(0,0,300,300);
+            // Ground
+            ctx.fillStyle = "#333"; ctx.fillRect(0, 280, 300, 20);
+            // Runner 🏃
+            ctx.fillStyle = "white"; ctx.font = "30px Arial"; ctx.fillText("🏃", runner.x, runner.y);
+            // Gravity
+            runner.y += runner.dy; runner.dy += 0.5;
+            if(runner.y > runner.ground) { runner.y = runner.ground; runner.dy = 0; }
+            // Obstacles 🌵
+            if(frame % 100 === 0) obstacles.push({ x: 300, y: 250 });
+            obstacles.forEach((o, i) => {
+                o.x -= 3; ctx.fillText("🌵", o.x, o.y);
+                if(o.x < 0) { obstacles.splice(i, 1); gScore++; balance += 1; updateUI(); }
+                // Collision
+                if(o.x < 70 && o.x > 30 && runner.y > 220) { initGame(); alert("Game Over! Coins Saved."); }
+            });
+            frame++; requestAnimationFrame(gameLoop);
+        }
+        canvas.addEventListener('touchstart', () => { if(runner.y == runner.ground) runner.dy = runner.jump; });
+        gameLoop();
 
         function updateUI() {
             let inr = (balance / 100).toFixed(2);
@@ -182,12 +202,11 @@
         function showTab(id) {
             document.querySelectorAll('.section').forEach(s => s.classList.remove('active-section'));
             document.getElementById(id).classList.add('active-section');
-            if(id === 'game-section') initGame();
         }
 
         function withdraw() {
-            if(balance < 10000) alert("Need ₹100!");
-            else { db.collection("withdrawals").add({ email: auth.currentUser.email, upi: document.getElementById('upi').value, amount: (balance/100).toFixed(2), date: new Date() }); alert("Sent!"); }
+            if(balance < 10000) alert("Need ₹100 to withdraw!");
+            else alert("Withdrawal Request Sent! Check Telegram.");
         }
     </script>
 </body>
