@@ -3,114 +3,128 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wealth Runner PRO - Multi Earning Hub</title>
-    
-    <!-- Firebase SDK -->
+    <title>Wealth Runner PRO v15.0 - Mining & Ludo</title>
+    <!-- Firebase -->
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
-
-    <!-- Ad & Task Scripts -->
+    <!-- Ads & Tasks -->
     <script type="text/javascript" src="https://doctoredits.com/script_include.php?id=1879344"></script>
     <script>(function(s){s.dataset.zone='10696988',s.src='https://gizokraijaw.net/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
 
     <style>
-        :root { --gold: #ffcc00; --neon: #00ffcc; --dark: #0a0a0a; --red: #ff3300; }
-        body { background: var(--dark); color: #fff; font-family: 'Segoe UI', sans-serif; margin: 0; padding-bottom: 90px; user-select: none; overflow-x: hidden; }
-        
-        /* Premium UI Components */
-        .header { background: #111; padding: 15px; border-bottom: 2px solid var(--gold); }
+        :root { --gold: #ffcc00; --neon: #00ffcc; --bg: #050505; --red: #ff3300; --blue: #0066ff; }
+        body { background: var(--bg); color: #fff; font-family: sans-serif; margin: 0; padding-bottom: 90px; text-align: center; }
         .balance-card { background: linear-gradient(145deg, #1a1a1a, #000); border: 2px solid var(--gold); border-radius: 25px; padding: 20px; margin: 15px auto; width: 85%; }
-        .points { font-size: 40px; font-weight: 900; color: var(--gold); margin: 0; }
-        .inr { font-size: 20px; color: var(--neon); font-weight: bold; }
-        
-        .main-btn { border: none; padding: 15px; width: 90%; border-radius: 15px; font-size: 17px; font-weight: bold; cursor: pointer; margin: 8px 0; transition: 0.2s; }
+        .bal-val { font-size: 38px; font-weight: 900; color: var(--gold); margin: 0; }
+        .main-btn { border: none; padding: 14px; width: 90%; border-radius: 12px; font-size: 16px; font-weight: bold; cursor: pointer; margin: 6px 0; }
         .btn-gold { background: var(--gold); color: #000; }
         .btn-purple { background: #cc00ff; color: #fff; }
-        
-        /* 🎮 Game & Ludo Styles */
-        #game-canvas { background: #111; border: 2px solid #333; border-radius: 15px; margin-top: 10px; width: 300px; height: 300px; touch-action: none; }
-        .ludo-room { background: #151515; border: 1px solid #333; padding: 15px; border-radius: 15px; margin: 10px; text-align: left; }
+        .btn-time { background: #222; color: #fff; border: 1px solid #444; padding: 5px 10px; border-radius: 5px; font-size: 12px; }
+        .btn-time.active { background: var(--gold); color: #000; }
+
+        /* 🎲 Classic Ludo UI */
+        #ludo-room { display:none; position:fixed; top:0; width:100%; height:100vh; background:#111; z-index:2000; }
+        .board { width: 300px; height: 300px; background: #fff; margin: 15px auto; border: 4px solid #333; position: relative; display: grid; grid-template-columns: repeat(15, 1fr); }
+        .piece { width: 22px; height: 22px; border-radius: 50%; position: absolute; transition: 0.4s; border: 2px solid #000; z-index: 100; }
+        #p1 { background: var(--blue); bottom: 10px; left: 10px; } 
+        #p2 { background: var(--red); top: 10px; right: 10px; }
+        .dice-btn { width: 75px; height: 75px; background: #fff; border-radius: 15px; margin: 10px auto; font-size: 35px; color: #000; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 0 20px var(--gold); }
 
         .footer { position: fixed; bottom: 0; width: 100%; background: #111; display: flex; justify-content: space-around; padding: 15px 0; border-top: 1px solid #333; z-index: 1000; }
-        .section { display: none; padding: 10px; animation: fadeIn 0.3s ease; }
+        .section { display: none; padding: 10px; }
         .active-section { display: block !important; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        #login-screen { position: fixed; top:0; left:0; width:100%; height:100%; background:#000; z-index: 10001; display:flex; flex-direction:column; justify-content:center; align-items:center; }
+        .card { background: #151515; border: 1px solid #333; padding: 15px; border-radius: 15px; margin: 10px; text-align: left; }
     </style>
 </head>
 <body>
 
-    <!-- 1. LOGIN SCREEN -->
-    <div id="login-screen">
-        <h1 style="color:var(--gold);">🏃 WEALTH RUNNER PRO</h1>
-        <p>Login to Claim ₹50 Signup Bonus!</p>
-        <button class="main-btn btn-gold" onclick="googleLogin()">LOGIN WITH GOOGLE</button>
+    <!-- LOGIN -->
+    <div id="login-screen" style="position:fixed; width:100%; height:100%; background:#000; z-index:10001; display:flex; flex-direction:column; justify-content:center; align-items:center;">
+        <h1 style="color:var(--gold);">🐝 WEALTH RUNNER PRO</h1>
+        <button class="main-btn btn-gold" onclick="googleLogin()">LOGIN & CLAIM ₹50 BONUS</button>
     </div>
 
-    <!-- 2. MINE SECTION -->
+    <!-- 1. MINE SECTION (Honey Bee Logic) -->
     <div id="mine-section" class="section">
         <div class="balance-card">
-            <h1 class="points" id="disp-bal">5000</h1>
-            <div class="inr">≈ ₹<span id="disp-inr">50.00</span></div>
-            <div id="speed-tag" style="font-size:12px; margin-top:8px; color:var(--gold);">SPEED: 1x (Auto Mining)</div>
+            <h1 class="bal-val" id="disp-bal">0</h1>
+            <div style="color:var(--neon); font-weight:bold;">≈ ₹<span id="disp-inr">0.00</span></div>
+            <div id="speed-meter" style="font-size:12px; margin-top:10px; color:var(--gold);">SPEED: 1x</div>
         </div>
         <button class="main-btn btn-gold" id="mine-btn" onclick="startMining()">⚡ START MINING</button>
-        <button class="main-btn btn-purple" id="video-btn" onclick="watchVideo()">📺 WATCH VIDEO (Earn ₹1)</button>
-        <button class="main-btn" style="background:var(--red); color:#fff;" onclick="boost5x()">🔥 5x SPEED BOOST</button>
+        <button class="main-btn btn-purple" id="v-btn" onclick="watchVideo()">📺 WATCH VIDEO (Earn ₹1)</button>
+        <button class="main-btn" style="background:red; color:#fff;" onclick="boost5x()">🔥 5x SPEED BOOST</button>
     </div>
 
-    <!-- 3. RUNNER GAME SECTION -->
-    <div id="game-section" class="section">
-        <h3 style="color:var(--gold);">🎮 WEALTH RUNNER</h3>
-        <p style="font-size:12px;">Tap to Jump! Earn 1 Coin per Obstacle.</p>
-        <canvas id="game-canvas" width="300" height="300"></canvas>
-        <button class="main-btn btn-gold" onclick="initGame()">RESTART & WATCH AD</button>
-    </div>
-
-    <!-- 4. LUDO P2P SECTION -->
+    <!-- 2. LUDO SECTION (Zupee Style) -->
     <div id="ludo-section" class="section">
-        <h2 style="color:var(--gold);">🎲 LUDO CHALLENGE</h2>
-        <div class="ludo-room">
-            <h4 style="margin:0;">Create a Challenge</h4>
-            <p style="font-size:12px;">Fee: 500 Coins (₹5) | Prize: 900 Coins (₹9)</p>
-            <button class="main-btn btn-gold" style="width:100%;" onclick="alert('Searching for online opponent...')">CREATE ROOM</button>
+        <h2 style="color:var(--gold);">🎲 Battle Arena</h2>
+        <div class="card">
+            <p>Select Match Time:</p>
+            <button class="btn-time active" onclick="setTime(2, this)">2 MIN</button>
+            <button class="btn-time" onclick="setTime(5, this)">5 MIN</button>
+            <button class="btn-time" onclick="setTime(10, this)">10 MIN</button>
         </div>
-        <div class="ludo-room" style="border-color:var(--neon);">
-            <h4 style="margin:0; color:var(--neon);">Live Rooms</h4>
-            <p style="font-size:12px;">User_Shiv is waiting... (Fee: ₹10)</p>
-            <button class="main-btn" style="background:var(--neon); color:#000; width:100%;" onclick="alert('Joining...')">JOIN & PLAY</button>
+        <button class="main-btn btn-gold" onclick="playLudo(100)">Match ₹1 (Win ₹1.8)</button>
+        <button class="main-btn btn-gold" onclick="playLudo(1000)">Match ₹10 (Win ₹18)</button>
+
+        <h3 style="color:var(--gold); margin-top:20px;">🌟 PRO DASHBOARD</h3>
+        <div class="card">
+            <p>Subscribers: <span id="subs">0</span>/10</p>
+            <p>Profit/Loss: <span id="pro-pl">₹0.00</span></p>
+            <button class="main-btn btn-gold" id="pro-btn" onclick="registerPro()">BECOME PRO (Fee ₹10)</button>
         </div>
     </div>
 
-    <!-- 5. WALLET -->
+    <!-- 3. TASKS -->
+    <div id="task-section" class="section">
+        <h2>📋 TASKS</h2>
+        <div class="card">
+            <h4>MEGA TASK: Install & Earn ₹40</h4>
+            <button class="main-btn btn-gold" onclick="call_locker()">GO TO TASKS</button>
+        </div>
+        <button class="main-btn" style="background:#00ff99; color:#000;" onclick="boost10x()">🚀 10x SUPER BOOST</button>
+        <button class="main-btn" style="background:#25D366; color:#fff;" onclick="share()">INVITE FRIENDS (₹10)</button>
+    </div>
+
+    <!-- 4. WALLET -->
     <div id="wallet-section" class="section">
         <h2>👛 WITHDRAW</h2>
-        <div class="balance-card">Available: ₹<span id="wall-inr">50.00</span></div>
-        <input type="text" id="upi" placeholder="Enter UPI ID (e.g. name@ybl)">
+        <div class="balance-card">Available: ₹<span id="wall-inr">0.00</span></div>
+        <input type="text" id="upi" placeholder="Enter UPI ID" style="width:85%; padding:15px; background:#111; color:#fff; border:none; border-radius:10px;">
         <button class="main-btn btn-gold" onclick="withdraw()">WITHDRAW NOW</button>
         <br><br>
-        <a href="https://t.me/Shiv5kumar" style="color:var(--gold); text-decoration:none; font-weight:bold;">💬 Contact Support (@Shiv5kumar)</a>
+        <a href="https://t.me/Shiv5kumar" style="color:var(--gold); text-decoration:none;">💬 Support: @Shiv5kumar</a>
     </div>
 
-    <!-- NAVIGATION -->
-    <div class="footer" id="footer-menu" style="display:none;">
+    <!-- LUDO GAME ROOM -->
+    <div id="ludo-room">
+        <div style="display:flex; justify-content:space-between; padding:15px;">
+            <span id="timer" style="color:var(--red); font-weight:bold; font-size:24px;">02:00</span>
+            <span id="match-score" style="color:var(--gold); font-weight:bold;">Score: 0</span>
+        </div>
+        <div class="board">
+            <div id="p1" class="piece"></div>
+            <div id="p2" class="piece"></div>
+        </div>
+        <div class="dice-btn" id="dice" onclick="rollLudo()">🎲</div>
+        <p>Opponent Score: <span id="opp-score">0</span></p>
+    </div>
+
+    <div class="footer" id="main-footer" style="display:none;">
         <div onclick="showTab('mine-section')">🏠 Mine</div>
-        <div onclick="showTab('game-section')">🎮 Play</div>
-        <div onclick="showTab('ludo-section')">🎲 Ludo</div>
+        <div onclick="showTab('ludo-section')">🎲 Play</div>
+        <div onclick="showTab('task-section')">📋 Tasks</div>
         <div onclick="showTab('wallet-section')">👛 Wallet</div>
     </div>
 
     <script>
-        // --- ⚠️ APNI FIREBASE DETAILS BHAREIN ⚠️ ---
         const firebaseConfig = { apiKey: "AIzaSyCvKAzu4Nj7IngFHg-VI59ZrIe4DYOmRTw", authDomain: "stravhoneybee.firebaseapp.com", projectId: "stravhoneybee", appId: "1:940311188604:web:21c4009a124ecd19c065f9" };
-        const MONETAG_LINK = "https://omg10.com/4/10688923";
-        const BOOST_LINK = "https://omg10.com/4/10655169";
-
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
         const auth = firebase.auth();
-        let userRef, balance = parseFloat(localStorage.getItem('run_bal')) || 0, multiplier = 1, isMining = false;
+        let userRef, balance = parseFloat(localStorage.getItem('bee_bal')) || 0, multiplier = 1, isMining = false, p1Pos = 0, p2Pos = 0, selectedTime = 2, currentFee = 0;
 
         function googleLogin() {
             const provider = new firebase.auth.GoogleAuthProvider();
@@ -120,77 +134,70 @@
         auth.onAuthStateChanged(user => {
             if (user) {
                 document.getElementById('login-screen').style.display = 'none';
-                document.getElementById('footer-menu').style.display = 'flex';
+                document.getElementById('main-footer').style.display = 'flex';
                 showTab('mine-section');
                 userRef = db.collection("users").doc(user.uid);
                 updateUI();
                 userRef.get().then(doc => {
-                    if (doc.exists) { balance = doc.data().balance; localStorage.setItem('run_bal', balance); updateUI(); }
-                    else { userRef.set({ email: user.email, balance: 5000 }); balance = 5000; updateUI(); }
+                    if (doc.exists) { balance = doc.data().balance; updateUI(); if(doc.data().isPro) document.getElementById('pro-btn').style.display="none"; }
+                    else { balance = 5000; userRef.set({ email: user.email, balance: 5000, signup: true, isPro: false, proPL: 0, subs: 0 }); updateUI(); }
                 });
             }
         });
 
         function startMining() {
             if(isMining) return; isMining = true;
-            document.getElementById('mine-btn').style.opacity = "0.5";
-            setInterval(() => {
-                balance += (0.01 * multiplier); 
-                updateUI();
-                localStorage.setItem('run_bal', balance);
-            }, 1000);
+            setInterval(() => { balance += (0.01 * multiplier); updateUI(); localStorage.setItem('bee_bal', balance); }, 1000);
             setInterval(() => { if(userRef) userRef.update({ balance: balance }); }, 7000);
         }
 
         function watchVideo() {
-            window.open(MONETAG_LINK, "_blank");
-            const btn = document.getElementById('video-btn');
-            btn.disabled = true; btn.style.background = "#444";
-            let s = 60;
+            window.open("https://omg10.com/4/10688923", "_blank");
+            const btn = document.getElementById('v-btn');
+            btn.disabled = true; let s = 60;
             let t = setInterval(() => {
                 s--; btn.innerText = `WAIT ${s}s`;
-                if(s<=0) { clearInterval(t); btn.disabled=false; btn.innerText="📺 WATCH VIDEO (Earn ₹1)"; btn.style.background="#ff00ff"; balance += 100; updateUI(); }
+                if(s<=0) { clearInterval(t); btn.disabled=false; btn.innerText="📺 WATCH VIDEO (Earn ₹1)"; balance += 100; updateUI(); }
             }, 1000);
         }
 
-        function boost5x() {
-            window.open(BOOST_LINK, "_blank");
-            multiplier = 5; document.getElementById('speed-tag').innerText = "SPEED: 5x 🔥";
-            setTimeout(() => { multiplier = 1; document.getElementById('speed-tag').innerText = "SPEED: 1x"; }, 300000);
+        function boost5x() { window.open("https://omg10.com/4/10655169", "_blank"); multiplier = 5; document.getElementById('speed-meter').innerText = "SPEED: 5x 🔥"; setTimeout(() => { multiplier = 1; document.getElementById('speed-meter').innerText = "SPEED: 1x"; }, 300000); }
+        function boost10x() { window.open("https://shrinkme.click/7FJVZs45", "_blank"); multiplier = 10; document.getElementById('speed-meter').innerText = "SPEED: 10x 🚀"; setTimeout(() => { multiplier = 1; document.getElementById('speed-meter').innerText = "SPEED: 1x"; }, 300000); }
+
+        function setTime(m, btn) { selectedTime = m; document.querySelectorAll('.btn-time').forEach(b => b.classList.remove('active')); btn.classList.add('active'); }
+
+        function playLudo(fee) {
+            if(balance < fee) { alert("Balance kam hai!"); return; }
+            balance -= fee; currentFee = fee;
+            p1Pos = 0; p2Pos = 0; updateUI();
+            document.getElementById('ludo-room').style.display = 'block';
+            window.open("https://omg10.com/4/10655169", "_blank");
+            let sec = selectedTime * 60;
+            let t = setInterval(() => {
+                sec--; document.getElementById('timer').innerText = `${Math.floor(sec/60)}:${sec%60 < 10 ? '0' : ''}${sec%60}`;
+                if(sec % 5 == 0) { p2Pos += Math.floor(Math.random()*6); movePiece('p2', p2Pos); }
+                if(sec <= 0) { clearInterval(t); endMatch(); }
+            }, 1000);
         }
 
-        // --- 🏃 SUBWAY RUNNER GAME ENGINE ---
-        const canvas = document.getElementById('game-canvas');
-        const ctx = canvas.getContext('2d');
-        let runner = { x: 50, y: 240, w: 30, h: 40, dy: 0, jump: -10, ground: 240 };
-        let obstacles = []; let frame = 0; let gScore = 0;
-
-        function initGame() { 
-            obstacles = []; gScore = 0; runner.y = 240; 
-            window.open(BOOST_LINK, "_blank"); // Profit on restart
+        function rollLudo() {
+            let r = Math.floor(Math.random()*6)+1; document.getElementById('dice').innerText = r;
+            p1Pos += r; if(p1Pos == p2Pos && p1Pos > 0) { p2Pos = 0; alert("KILLED! ⚔️"); }
+            movePiece('p1', p1Pos);
         }
 
-        function gameLoop() {
-            ctx.clearRect(0,0,300,300);
-            // Ground
-            ctx.fillStyle = "#333"; ctx.fillRect(0, 280, 300, 20);
-            // Runner 🏃
-            ctx.fillStyle = "white"; ctx.font = "30px Arial"; ctx.fillText("🏃", runner.x, runner.y);
-            // Gravity
-            runner.y += runner.dy; runner.dy += 0.5;
-            if(runner.y > runner.ground) { runner.y = runner.ground; runner.dy = 0; }
-            // Obstacles 🌵
-            if(frame % 100 === 0) obstacles.push({ x: 300, y: 250 });
-            obstacles.forEach((o, i) => {
-                o.x -= 3; ctx.fillText("🌵", o.x, o.y);
-                if(o.x < 0) { obstacles.splice(i, 1); gScore++; balance += 1; updateUI(); }
-                // Collision
-                if(o.x < 70 && o.x > 30 && runner.y > 220) { initGame(); alert("Game Over! Coins Saved."); }
-            });
-            frame++; requestAnimationFrame(gameLoop);
+        function movePiece(id, pos) {
+            let p = document.getElementById(id);
+            p.style.left = (pos * 10 % 280) + "px"; p.style.bottom = (Math.floor(pos/5) * 20 % 280) + "px";
+            if(id=='p1') document.getElementById('match-score').innerText = "Score: " + pos;
+            else document.getElementById('opp-score').innerText = pos;
         }
-        canvas.addEventListener('touchstart', () => { if(runner.y == runner.ground) runner.dy = runner.jump; });
-        gameLoop();
+
+        function endMatch() {
+            if(p1Pos > p2Pos) { let win = currentFee * 1.8; balance += win; alert("WON ₹" + win/100); } else alert("LOST!");
+            db.collection("admin_paisa").add({ amount: currentFee * 0.1, date: new Date(), user: auth.currentUser.email });
+            userRef.update({ balance: balance }); location.reload();
+        }
 
         function updateUI() {
             let inr = (balance / 100).toFixed(2);
@@ -199,15 +206,10 @@
             document.getElementById('wall-inr').innerText = inr;
         }
 
-        function showTab(id) {
-            document.querySelectorAll('.section').forEach(s => s.classList.remove('active-section'));
-            document.getElementById(id).classList.add('active-section');
-        }
-
-        function withdraw() {
-            if(balance < 10000) alert("Need ₹100 to withdraw!");
-            else alert("Withdrawal Request Sent! Check Telegram.");
-        }
+        function showTab(id) { document.querySelectorAll('.section').forEach(s => s.classList.remove('active-section')); document.getElementById(id).classList.add('active-section'); }
+        function share() { window.open("https://api.whatsapp.com/send?text=Join My Bee Network: https://t.me/StravBee_bot", "_blank"); }
+        function withdraw() { alert("Withdrawal Requested!"); }
+        function registerPro() { if(balance < 1000) alert("Need ₹10!"); else { balance -= 1000; userRef.update({ isPro: true, balance: balance }); alert("Now a Pro!"); location.reload(); } }
     </script>
 </body>
 </html>
